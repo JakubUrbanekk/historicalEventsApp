@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class DatabaseManager extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "historicalEvents";
     private static final String TAG = DatabaseManager.class.getName();
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 5;
     private Dao<ReportEntity, Integer> reportDao = null;
     private Dao<PhotoEntity, Integer> photoDao = null;
 
@@ -46,6 +46,7 @@ public class DatabaseManager extends OrmLiteSqliteOpenHelper {
         try{
             Log.i(TAG, "on upgrade");
             TableUtils.dropTable(connectionSource, ReportEntity.class, true);
+            TableUtils.dropTable(connectionSource, PhotoEntity.class, true);
             onCreate(database,connectionSource);
         }
         catch (SQLException e) {

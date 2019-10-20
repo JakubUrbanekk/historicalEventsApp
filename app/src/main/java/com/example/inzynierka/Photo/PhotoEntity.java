@@ -2,6 +2,7 @@ package com.example.inzynierka.Photo;
 
 import android.net.Uri;
 
+import com.example.inzynierka.Report.ReportEntity;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -11,8 +12,8 @@ public class PhotoEntity {
     int photoId;
     @DatabaseField
     String photoUri;
-   // @DatabaseField(foreign = true)
-    int reportId;
+    @DatabaseField(foreign = true)
+    ReportEntity report;
 
     public PhotoEntity() {
     }
@@ -35,12 +36,21 @@ public class PhotoEntity {
         this.photoUri = uri;
     }
 
-    public int getReportId() {
-        return reportId;
+    public ReportEntity getReport() {
+        return report;
     }
 
-    public void setReportId(int reportId) {
-        this.reportId = reportId;
+    public void setReport(ReportEntity report) {
+        this.report = report;
+    }
+
+    @Override
+    public String toString() {
+        return "PhotoEntity{" +
+                "photoId=" + photoId +
+                ", photoUri='" + photoUri + '\'' +
+                ", report=" + report +
+                '}';
     }
 }
 

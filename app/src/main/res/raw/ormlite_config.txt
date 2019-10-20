@@ -1,5 +1,5 @@
 #
-# generated on 2019/10/20 10:15:41
+# generated on 2019/10/20 04:15:57
 #
 # --table-start--
 dataClass=com.example.inzynierka.Photo.PhotoEntity
@@ -12,6 +12,10 @@ generatedId=true
 # --field-start--
 fieldName=photoUri
 # --field-end--
+# --field-start--
+fieldName=report
+foreign=true
+# --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
@@ -22,6 +26,16 @@ tableName=Report
 # --field-start--
 fieldName=reportId
 generatedId=true
+# --field-end--
+# --field-start--
+fieldName=reportListPhotos
+foreignCollection=true
+# --field-end--
+# --field-start--
+fieldName=reportDescription
+# --field-end--
+# --field-start--
+fieldName=creationCompleted
 # --field-end--
 # --table-fields-end--
 # --table-end--

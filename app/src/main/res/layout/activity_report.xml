@@ -29,6 +29,7 @@
         app:srcCompat="@mipmap/ic_launcher" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -44,4 +45,26 @@
             android:layout_height="fill_parent"
             android:background="#27002b" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonReportAddReport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="addReport"
+        android:text="Dodaj relacje"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+
+
+    <EditText
+        android:id="@+id/editTextReportDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonReportAddReport"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
