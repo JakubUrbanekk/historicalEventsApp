@@ -1,7 +1,6 @@
 package com.example.inzynierka.Report;
 
 import android.Manifest;
-import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ClipData;
@@ -9,7 +8,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -97,7 +95,7 @@ public class ReportActivity extends OrmLiteBaseActivity<DatabaseManager> {
                         } else {
                             if (data.getClipData() != null) {
                                 ClipData mClipData = data.getClipData();
-                                addPhotosToDatabase(mClipData);
+                                addPhotoToDatabase(mClipData);
                             } else {
                                 Toast.makeText(this, "Nie wybraleś zdjęcia", Toast.LENGTH_LONG).show();
                             }
@@ -113,27 +111,16 @@ public class ReportActivity extends OrmLiteBaseActivity<DatabaseManager> {
             }
     }
 
-    private void addPhotosToDatabase(ClipData mClipData) {
+    private void addPhotoToDatabase(ClipData mClipData) {
             for (int i = 0; i < mClipData.getItemCount(); i++) {
                 ClipData.Item item = mClipData.getItemAt(i);
                 Uri uri = item.getUri();
-                connectPhotoWithReport(uri);
+                addPhotoToDatabase(uri);
             }
 
     }
 
     private void addPhotoToDatabase(Uri photoUri) {
-        // get our dao
-        try {
-            Dao<ReportEntity, Integer> reportDao = getHelper().getReportDao();
-            reportEntity = reportDao.queryForId(reportEntity.getReportId());
-            connectPhotoWithReport(photoUri);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
-    private void connectPhotoWithReport(Uri photoUri) {
         // get our dao
         try {
             Log.e(TAG  , "before connecting" + reportEntity.toString());
