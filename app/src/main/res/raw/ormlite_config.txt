@@ -1,0 +1,17 @@
+#
+# generated on 2019/10/19 11:18:08
+#
+# --table-start--
+dataClass=com.example.inzynierka.Report.ReportEntity
+tableName=Report
+# --table-fields-start--
+# --field-start--
+fieldName=reportId
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=reportListPhotos
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
