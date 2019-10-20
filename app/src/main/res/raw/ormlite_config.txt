@@ -1,6 +1,20 @@
 #
-# generated on 2019/10/19 11:18:08
+# generated on 2019/10/20 10:15:41
 #
+# --table-start--
+dataClass=com.example.inzynierka.Photo.PhotoEntity
+tableName=Photo
+# --table-fields-start--
+# --field-start--
+fieldName=photoId
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=photoUri
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
 # --table-start--
 dataClass=com.example.inzynierka.Report.ReportEntity
 tableName=Report
@@ -8,9 +22,6 @@ tableName=Report
 # --field-start--
 fieldName=reportId
 generatedId=true
-# --field-end--
-# --field-start--
-fieldName=reportListPhotos
 # --field-end--
 # --table-fields-end--
 # --table-end--

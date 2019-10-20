@@ -8,25 +8,22 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.inzynierka.Database.DatabaseManager;
-import com.example.inzynierka.MainActivity;
+import com.example.inzynierka.Photo.PhotoEntity;
+import com.example.inzynierka.Photo.PhotosAdapter;
 import com.example.inzynierka.R;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,7 +33,6 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ReportActivity extends OrmLiteBaseActivity<DatabaseManager> {
     Button addPhotos;
     ImageView mainPhoto;
-    List<Uri> imagesEncodedList;
     RecyclerView recyclerViewPhotosList;
     private static PhotosAdapter photosAdapter;
     private static final int GALLERY_REQUEST_CODE = 1;
@@ -76,10 +72,8 @@ public class ReportActivity extends OrmLiteBaseActivity<DatabaseManager> {
             switch (requestCode) {
                 case GALLERY_REQUEST_CODE:
                     if (data != null) {
-                        imagesEncodedList = new ArrayList<>();
                         if (data.getData() != null) {
                             Uri mImageUri = data.getData();
-                            imagesEncodedList.add(mImageUri);
                             addPhotoToDatabase(mImageUri);
 
                         } else {
@@ -88,13 +82,13 @@ public class ReportActivity extends OrmLiteBaseActivity<DatabaseManager> {
                                 for (int i = 0; i < mClipData.getItemCount(); i++) {
                                     ClipData.Item item = mClipData.getItemAt(i);
                                     Uri uri = item.getUri();
-                                    imagesEncodedList.add(uri);
                                     addPhotoToDatabase(uri);
                                 }
                             } else {
                                 Toast.makeText(this, "Nie wybraleś zdjęcia", Toast.LENGTH_LONG).show();
                             }
-                            photosAdapter = new PhotosAdapter(imagesEncodedList, ReportActivity.this, mainPhoto);
+                            List<Uri> photosUri = getPhotosFromDatabase();
+                            photosAdapter = new PhotosAdapter(photosUri, ReportActivity.this, mainPhoto);
                             LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(ReportActivity.this, LinearLayoutManager.HORIZONTAL, false);
                             recyclerViewPhotosList.setLayoutManager(horizontalLayoutManager);
                             recyclerViewPhotosList.setAdapter(photosAdapter);
@@ -110,7 +104,7 @@ public class ReportActivity extends OrmLiteBaseActivity<DatabaseManager> {
         try {
             Dao<PhotoEntity, Integer> photoDao = getHelper().getPhotoDao();
             PhotoEntity photoEntity = new PhotoEntity();
-            photoEntity.setPhotoUri(photoUri);\
+            photoEntity.setPhotoUri(photoUri);
             photoDao.create(photoEntity);
         } catch (SQLException e) {
             e.printStackTrace();

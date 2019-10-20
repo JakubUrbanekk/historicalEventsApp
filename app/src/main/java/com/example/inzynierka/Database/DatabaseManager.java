@@ -4,11 +4,11 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.example.inzynierka.Report.PhotoEntity;
+import com.example.inzynierka.R;
+import com.example.inzynierka.Photo.PhotoEntity;
 import com.example.inzynierka.Report.ReportEntity;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class DatabaseManager extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "historicalEvents";
     private static final String TAG = DatabaseManager.class.getName();
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private Dao<ReportEntity, Integer> reportDao = null;
     private Dao<PhotoEntity, Integer> photoDao = null;
 
@@ -25,14 +25,16 @@ public class DatabaseManager extends OrmLiteSqliteOpenHelper {
         super(context, databaseName, factory, databaseVersion);
         this.reportDao = reportDao;
     }
-// public DatabaseManager(Context context){
-      // super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
 
+    public DatabaseManager(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
+    }
     @Override
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try {
             Log.i(TAG, "onCreate");
             TableUtils.createTable(connectionSource, ReportEntity.class);
+            TableUtils.createTable(connectionSource, PhotoEntity.class);
         } catch (SQLException e) {
             Log.e(TAG, "Can't create database", e);
             throw new RuntimeException(e);

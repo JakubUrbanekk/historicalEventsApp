@@ -1,21 +1,18 @@
-package com.example.inzynierka.Report;
+package com.example.inzynierka.Photo;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.inzynierka.R;
 
-import java.io.IOException;
 import java.util.List;
 
 import androidx.annotation.NonNull;

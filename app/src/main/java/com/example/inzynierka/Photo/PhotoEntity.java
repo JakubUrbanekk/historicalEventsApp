@@ -1,4 +1,4 @@
-package com.example.inzynierka.Report;
+package com.example.inzynierka.Photo;
 
 import android.net.Uri;
 
@@ -10,8 +10,8 @@ public class PhotoEntity {
     @DatabaseField(generatedId=true)
     int photoId;
     @DatabaseField
-    Uri photoUri;
-    @DatabaseField(foreign = true)
+    String photoUri;
+   // @DatabaseField(foreign = true)
     int reportId;
 
     public PhotoEntity() {
@@ -26,11 +26,13 @@ public class PhotoEntity {
     }
 
     public Uri getPhotoUri() {
-        return photoUri;
+        Uri uri = Uri.parse(photoUri);
+        return uri;
     }
 
     public void setPhotoUri(Uri photoUri) {
-        this.photoUri = photoUri;
+        String uri = photoUri.toString();
+        this.photoUri = uri;
     }
 
     public int getReportId() {

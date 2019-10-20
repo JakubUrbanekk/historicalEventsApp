@@ -1,9 +1,7 @@
 package com.example.inzynierka.Report;
 
-import android.net.Uri;
-
+import com.example.inzynierka.Photo.PhotoEntity;
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.List;
@@ -12,9 +10,9 @@ import java.util.List;
 public class ReportEntity {
     @DatabaseField(generatedId=true)
     int reportId;
-    @DatabaseField(foreign = true, columnName = "eventId")
+   // @DatabaseField(foreign = true, columnName = "eventId")
     int eventId;
-    @ForeignCollectionField
+ //   @ForeignCollectionField
     List<PhotoEntity> reportListPhotos;
 
     public ReportEntity() {
