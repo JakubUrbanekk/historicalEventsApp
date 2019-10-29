@@ -34,8 +34,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class ReportActivity extends OrmLiteBaseActivity<DatabaseManager> {
-    final static String TAG = ReportActivity.class.getName();
+public class ReportAddActivity extends OrmLiteBaseActivity<DatabaseManager> {
+    final static String TAG = ReportAddActivity.class.getName();
     Button addPhotos;
     ImageView mainPhoto;
     RecyclerView recyclerViewPhotosList;
@@ -47,7 +47,7 @@ public class ReportActivity extends OrmLiteBaseActivity<DatabaseManager> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_report);
+        setContentView(R.layout.activity_add_report);
         reportEntity = new ReportEntity();
         Dao<ReportEntity, Integer> reportDao = null;
         try {
@@ -100,8 +100,8 @@ public class ReportActivity extends OrmLiteBaseActivity<DatabaseManager> {
                                 Toast.makeText(this, "Nie wybraleś zdjęcia", Toast.LENGTH_LONG).show();
                             }
                             List<Uri> photosUri = getPhotosFromDatabase();
-                            photosAdapter = new PhotosAdapter(photosUri, ReportActivity.this, mainPhoto);
-                            LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(ReportActivity.this, LinearLayoutManager.HORIZONTAL, false);
+                            photosAdapter = new PhotosAdapter(photosUri, ReportAddActivity.this, mainPhoto);
+                            LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(ReportAddActivity.this, LinearLayoutManager.HORIZONTAL, false);
                             recyclerViewPhotosList.setLayoutManager(horizontalLayoutManager);
                             recyclerViewPhotosList.setAdapter(photosAdapter);
                             break;
@@ -155,8 +155,8 @@ public class ReportActivity extends OrmLiteBaseActivity<DatabaseManager> {
     @Override
     public void onBackPressed() {
         Log.i(TAG , "onBackPressed Called");
-        Intent intent = new Intent(ReportActivity.this, MainActivity.class);
-        ReportActivity.this.startActivity(intent);
+        Intent intent = new Intent(ReportAddActivity.this, MainActivity.class);
+        ReportAddActivity.this.startActivity(intent);
     }
     public void addReport(View view) {
         Log.i(TAG , "Creating report");
@@ -164,8 +164,8 @@ public class ReportActivity extends OrmLiteBaseActivity<DatabaseManager> {
                 reportEntity.setReportDescription(getDescriptionText());
                 reportEntity.setCreationCompleted(true);
                 Log.i(TAG, "Created report");
-                Intent intent = new Intent(ReportActivity.this, MainActivity.class);
-                ReportActivity.this.startActivity(intent);
+                Intent intent = new Intent(ReportAddActivity.this, MainActivity.class);
+                ReportAddActivity.this.startActivity(intent);
         }
         else {
             Toast.makeText(this, "Podaj opis relacji", Toast.LENGTH_SHORT).show();

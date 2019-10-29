@@ -28,7 +28,7 @@ public class EventCreationActivity extends AppCompatActivity implements PlacesAu
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_creation);
 
-        Places.initialize(this, "AIzaSyDhv2EMRmrh0gyWPNr9-K5tcJkjD-NuSX8");
+        Places.initialize(this, "");
         recyclerView = (RecyclerView) findViewById(R.id.places_recycler_view);
         placesSearch = (EditText) findViewById(R.id.place_search);
         placesSearch.addTextChangedListener(filterTextWatcher);
