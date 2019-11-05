@@ -41,7 +41,7 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.report_photo_item, parent, false);
         return new ViewHolder(itemView);
 
-    }
+    }//
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
