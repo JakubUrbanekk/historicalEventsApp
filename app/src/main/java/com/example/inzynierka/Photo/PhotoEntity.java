@@ -6,11 +6,17 @@ import com.example.inzynierka.Report.ReportEntity;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-@DatabaseTable(tableName = "Photo")
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "photo")
 public class PhotoEntity {
-    @DatabaseField(generatedId=true)
+    @PrimaryKey
+    @NonNull
     int photoId;
-    @DatabaseField
+    @ColumnInfo(name = "uri")
     String photoUri;
     @DatabaseField(foreign = true)
     ReportEntity report;
