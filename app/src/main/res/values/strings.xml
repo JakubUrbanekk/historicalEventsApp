@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Inzynierka</string>
+    <string name="report_title">Tytuł</string>
+    <string name="date">Data</string>
+    <string name="photo_description">Opis zdjęcia</string>
+    <string name="add_photo">Dodaj zdjęcie</string>
+    <string name="Cancel">Anuluj</string>
+    <string name="add" >Dodaj</string>
+    <string name="localization">Lokalizacja</string>
+    <string name="photo_desccription">Główne zdjęcie relacji</string>
 </resources>

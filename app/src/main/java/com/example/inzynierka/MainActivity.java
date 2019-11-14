@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.inzynierka.EventCreation.EventCreationActivity;
+import com.example.inzynierka.Report.ListOfReportsActivity;
 import com.example.inzynierka.Report.ReportAddActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +32,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void reportListener(View view) {
         Intent intent = new Intent(MainActivity.this, ReportAddActivity.class);
+        MainActivity.this.startActivity(intent);
+    }
+    public void viewReportListener(View view){
+        Intent intent = new Intent(MainActivity.this, ListOfReportsActivity.class);
         MainActivity.this.startActivity(intent);
     }
 

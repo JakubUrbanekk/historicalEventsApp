@@ -4,15 +4,20 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 
 import com.bumptech.glide.Glide;
 import com.example.inzynierka.R;
+import com.example.inzynierka.Report.AddReportViewModel;
+import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -22,11 +27,15 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
     List<Uri> photosList;
     Context context;
     ImageView mainPhoto;
+    AddReportViewModel reportViewModel;
+    TextInputLayout textInputLayout;
 
-    public PhotosAdapter(List<Uri> photosList, Context context, ImageView mainPhoto){
-        this.photosList=photosList;
-        this.context=context;
-        this.mainPhoto=mainPhoto;
+    public PhotosAdapter(Context context, ImageView mainPhoto, AddReportViewModel reportViewModel, TextInputLayout textInputLayout){
+        this.photosList = new ArrayList<>();
+        this.context = context;
+        this.mainPhoto = mainPhoto;
+        this.reportViewModel = reportViewModel;
+        this.textInputLayout = textInputLayout;
     }
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView imageView;
@@ -45,8 +54,7 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        Uri imageUri = photosList.get(position);
-        Log.e("APP ", imageUri+"");
+        final Uri imageUri = photosList.get(position);
         Glide
                 .with(context)
                 .load(imageUri)
@@ -56,9 +64,19 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BitmapDrawable drawable = (BitmapDrawable) holder.imageView.getDrawable();
-                Bitmap bitmap = drawable.getBitmap();
-                mainPhoto.setImageBitmap(bitmap);
+                int mainPhotoVisibility = mainPhoto.getVisibility();
+                if(mainPhotoVisibility==8){
+                    mainPhoto.setVisibility(View.VISIBLE);
+                    textInputLayout.setVisibility(View.VISIBLE);
+                }
+                Glide
+                        .with(context)
+                        .load(imageUri)
+                        .placeholder(R.drawable.ic_launcher_background)
+                        .centerCrop()
+                        .into(mainPhoto);
+                Log.i("MainPhoto", "main photo uri" +imageUri + " visibility " +mainPhoto.getVisibility());
+                reportViewModel.setMainPhotoUri(imageUri);
             }
         });
     }
@@ -66,6 +84,10 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
     @Override
     public int getItemCount() {
         return photosList.size();
+    }
+    public void setPhotos(List<Uri> photoUris){
+        photosList = photoUris;
+        notifyDataSetChanged();
     }
 
 }
