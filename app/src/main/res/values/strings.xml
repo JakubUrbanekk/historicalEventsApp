@@ -8,4 +8,8 @@
     <string name="add" >Dodaj</string>
     <string name="localization">Lokalizacja</string>
     <string name="photo_desccription">Główne zdjęcie relacji</string>
+    <string name="no_image_text">Dodaj swoje pierwsze zdjecie</string>
+    <string name="Description">Opis</string>
+    <string name="Photos">Zdjęcia</string>
+    <string name="ReportDescription" />
 </resources>

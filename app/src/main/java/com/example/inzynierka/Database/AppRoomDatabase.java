@@ -12,7 +12,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-@Database(entities = {PhotoEntity.class, ReportEntity.class}, version = 8, exportSchema = false)
+@Database(entities = {PhotoEntity.class, ReportEntity.class}, version = 25, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppRoomDatabase extends RoomDatabase {
 

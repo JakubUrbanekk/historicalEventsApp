@@ -1,9 +1,12 @@
 package com.example.inzynierka;
 
 import android.app.DatePickerDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
+
+import com.example.inzynierka.Report.AddReport.AddReportViewModel;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -15,6 +18,7 @@ public class DataPickerWrapper implements android.view.View.OnFocusChangeListene
     private TextView display;
     private DatePickerDialog dialog = null;
     private Date currentDate = null;
+    private AddReportViewModel addReportViewModel;
 
     public DataPickerWrapper(TextView display) {
         this.display = display;
@@ -22,6 +26,14 @@ public class DataPickerWrapper implements android.view.View.OnFocusChangeListene
         this.display.setClickable(true);
         this.display.setOnFocusChangeListener(this);
         this.setDate(new Date());
+    }
+    public DataPickerWrapper(TextView display, AddReportViewModel addReportViewModel) {
+        this.display = display;
+        this.display.setFocusable(true);
+        this.display.setClickable(true);
+        this.display.setOnFocusChangeListener(this);
+        this.setDate(new Date());
+        this.addReportViewModel = addReportViewModel;
     }
 
     @Override
@@ -44,7 +56,10 @@ public class DataPickerWrapper implements android.view.View.OnFocusChangeListene
 
         this.currentDate = (Date) date.clone();
         this.display.setText(dateFormat.format(currentDate));
-
+        if(addReportViewModel!=null) {
+            Log.i("Dialog ", currentDate + "");
+            addReportViewModel.setReportDate(currentDate.toString());
+        }
         if(this.dialog != null) {
             final GregorianCalendar calendar = new GregorianCalendar();
             calendar.setTime(currentDate);

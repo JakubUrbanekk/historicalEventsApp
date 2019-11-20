@@ -1,16 +1,15 @@
-package com.example.inzynierka.Report;
+package com.example.inzynierka.Report.ListOfReports;
 
 import android.content.Context;
-import android.media.Image;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.inzynierka.Database.Report.ReportDao;
+import com.bumptech.glide.Glide;
 import com.example.inzynierka.Database.Report.ReportEntity;
-import com.example.inzynierka.Database.Report.ReportRepository;
 import com.example.inzynierka.R;
 
 import java.util.List;
@@ -20,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ReportListAdapter extends RecyclerView.Adapter<ReportListAdapter.ViewHolder> implements View.OnClickListener {
     List<ReportEntity> reportEntityList;
-
+    Context context;
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -30,17 +29,36 @@ public class ReportListAdapter extends RecyclerView.Adapter<ReportListAdapter.Vi
         return viewHolder;
     }
 
+    public ReportListAdapter(Context context) {
+        this.context = context;
+    }
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        TextView textViewDescription = holder.textViewDescription;
+        TextView textViewTitle = holder.textViewTitle;
+        TextView textViewDate = holder.textViewDate;
+        TextView textViewLocaliztion = holder.textViewLocalization;
         ImageView imageView = holder.imageViewMainPhoto;
         if(reportEntityList == null){
-            textViewDescription.setText("Dodaj swoją pierwsza relacje");
+            textViewTitle.setText("Dodaj swoją pierwsza relacje");
         }
         else {
-            textViewDescription.setText(reportEntityList.get(position).getReportDescription());
-            imageView.setImageURI(reportEntityList.get(position).getMainPhoto());
-        }
+            textViewTitle.setText(reportEntityList.get(position).getReportTitle());
+            textViewDate.setText(reportEntityList.get(position).getReportDate().toString());
+            textViewLocaliztion.setText(reportEntityList.get(position).getReportLocalization());
+            Uri mainPhotoUri = reportEntityList.get(position).getMainPhoto();
+            if(!mainPhotoUri.toString().equals("")) {
+                Glide
+                        .with(context)
+                        .load(mainPhotoUri)
+                        .centerCrop()
+                        .into(holder.imageViewMainPhoto);
+            }
+            else {
+                imageView.setVisibility(View.GONE);
+            }
+            }
+
         }
 
     @Override
@@ -60,12 +78,16 @@ public class ReportListAdapter extends RecyclerView.Adapter<ReportListAdapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView textViewDescription;
+        TextView textViewTitle;
+        TextView textViewDate;
+        TextView textViewLocalization;
         ImageView imageViewMainPhoto;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            this.textViewDescription = (TextView) itemView.findViewById(R.id.reportItemTextViewDescription);
+            this.textViewTitle = (TextView) itemView.findViewById(R.id.reportItemTextViewTitle);
+            this.textViewDate = (TextView) itemView.findViewById(R.id.reportItemTextViewDate);
+            this.textViewLocalization = (TextView) itemView.findViewById(R.id.reportItemTextViewLocalization);
             this.imageViewMainPhoto = (ImageView) itemView.findViewById(R.id.reportItemImageViewMainPhoto);
         }
     }

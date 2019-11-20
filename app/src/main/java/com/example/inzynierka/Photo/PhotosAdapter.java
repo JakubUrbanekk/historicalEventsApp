@@ -1,41 +1,41 @@
 package com.example.inzynierka.Photo;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.nfc.Tag;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 
 import com.bumptech.glide.Glide;
+import com.example.inzynierka.Database.Photo.PhotoEntity;
 import com.example.inzynierka.R;
-import com.example.inzynierka.Report.AddReportViewModel;
+import com.example.inzynierka.Report.AddReport.AddReportViewModel;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder> {
     List<Uri> photosList;
-    Context context;
+    List<PhotoEntity> photoEntities;
+    Fragment context;
     ImageView mainPhoto;
     AddReportViewModel reportViewModel;
     TextInputLayout textInputLayout;
+    TextInputEditText textInputEditText;
 
-    public PhotosAdapter(Context context, ImageView mainPhoto, AddReportViewModel reportViewModel, TextInputLayout textInputLayout){
+    public PhotosAdapter(Fragment context, ImageView mainPhoto, AddReportViewModel reportViewModel, TextInputLayout textInputLayout, TextInputEditText textInputEditText){
         this.photosList = new ArrayList<>();
         this.context = context;
         this.mainPhoto = mainPhoto;
         this.reportViewModel = reportViewModel;
         this.textInputLayout = textInputLayout;
+        this.textInputEditText = textInputEditText;
     }
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView imageView;
@@ -53,7 +53,7 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final Uri imageUri = photosList.get(position);
         Glide
                 .with(context)
@@ -64,19 +64,21 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int mainPhotoVisibility = mainPhoto.getVisibility();
-                if(mainPhotoVisibility==8){
-                    mainPhoto.setVisibility(View.VISIBLE);
-                    textInputLayout.setVisibility(View.VISIBLE);
-                }
                 Glide
                         .with(context)
                         .load(imageUri)
-                        .placeholder(R.drawable.ic_launcher_background)
+                        .placeholder(R.drawable.noimge)
                         .centerCrop()
                         .into(mainPhoto);
-                Log.i("MainPhoto", "main photo uri" +imageUri + " visibility " +mainPhoto.getVisibility());
-                reportViewModel.setMainPhotoUri(imageUri);
+                PhotoEntity photoEntity = photoEntities.get(position);
+                reportViewModel.setMainPhoto(photoEntity);
+                if (photoEntity.getPhotoDescription()!=null){
+                    textInputEditText.setText(photoEntity.getPhotoDescription());
+                }
+                else{
+                    textInputEditText.getText().clear();
+                }
+
             }
         });
     }
@@ -85,8 +87,12 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
     public int getItemCount() {
         return photosList.size();
     }
-    public void setPhotos(List<Uri> photoUris){
-        photosList = photoUris;
+    public void setPhotos(List<PhotoEntity> photoEntities){
+        this.photoEntities = photoEntities;
+        photosList.clear();
+        for (PhotoEntity photoEntity: photoEntities){
+            photosList.add(photoEntity.getPhotoUri());
+        }
         notifyDataSetChanged();
     }
 

@@ -2,9 +2,12 @@ package com.example.inzynierka.Database.Report;
 
 import android.net.Uri;
 
+import com.example.inzynierka.Database.Photo.PhotoEntity;
+
 import java.util.Date;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -13,10 +16,28 @@ public class ReportEntity {
     @PrimaryKey (autoGenerate = true)
     @NonNull
     Integer reportId;
-    Integer eventId;
     String reportDescription;
     Date reportDate;
-    Uri mainPhotoUri;
+    @Nullable
+    PhotoEntity mainPhoto;
+    String reportLocalization;
+    String reportTitle;
+
+    public String getReportLocalization() {
+        return reportLocalization;
+    }
+
+    public void setReportLocalization(String reportLocalization) {
+        this.reportLocalization = reportLocalization;
+    }
+
+    public String getReportTitle() {
+        return reportTitle;
+    }
+
+    public void setReportTitle(String reportTitle) {
+        this.reportTitle = reportTitle;
+    }
 
     @NonNull
     public Integer getReportId() {
@@ -25,14 +46,6 @@ public class ReportEntity {
 
     public void setReportId(@NonNull Integer reportId) {
         this.reportId = reportId;
-    }
-
-    public Integer getEventId() {
-        return eventId;
-    }
-
-    public void setEventId(Integer eventId) {
-        this.eventId = eventId;
     }
 
     public String getReportDescription() {
@@ -52,20 +65,21 @@ public class ReportEntity {
     }
 
     public Uri getMainPhoto() {
-        return mainPhotoUri;
+        return mainPhoto.getPhotoUri();
     }
-    public void setMainPhoto(Uri mainPhotoUri){
-        this.mainPhotoUri = mainPhotoUri;
+    public void setMainPhoto(PhotoEntity photoEntity){
+        this.mainPhoto = photoEntity;
     }
 
     @Override
     public String toString() {
         return "ReportEntity{" +
                 "reportId=" + reportId +
-                ", eventId=" + eventId +
                 ", reportDescription='" + reportDescription + '\'' +
                 ", reportDate=" + reportDate +
-                ", mainPhotoUri=" + mainPhotoUri +
+                ", mainPhoto=" + mainPhoto +
+                ", reportLocalization='" + reportLocalization + '\'' +
+                ", reportTitle='" + reportTitle + '\'' +
                 '}';
     }
 }

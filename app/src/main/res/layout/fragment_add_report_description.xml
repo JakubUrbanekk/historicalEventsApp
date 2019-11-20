@@ -5,35 +5,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:id="@+id/buttons_layout"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/reportAddLayoutReportDescription"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/grid_spacer1"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:hint="@string/Description"
+        app:counterEnabled="true"
+        app:counterMaxLength="255"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/localization_layout">
+        app:layout_constraintTop_toBottomOf="@id/localization_layout">
 
-        <Button
-            android:id="@+id/reportAddButtonCancel"
-            style="@style/Widget.AppCompat.ButtonBar"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/reportAddEditTextReportDescription"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/Cancel"
-            android:textColor="@color/colorPrimaryText" />
-
-        <Button
-            android:id="@+id/reportAddButtonAdd"
-            style="@style/Widget.AppCompat.ButtonBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="addReport"
-            android:text="@string/add"
-            android:textColor="@color/colorPrimaryText" />
-
-    </LinearLayout>
+            android:layout_margin="@dimen/grid_spacer1"
+            android:inputType="textMultiLine" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/localization_layout"

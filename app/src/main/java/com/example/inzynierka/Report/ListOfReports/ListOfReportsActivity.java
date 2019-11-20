@@ -1,14 +1,20 @@
-package com.example.inzynierka.Report;
+package com.example.inzynierka.Report.ListOfReports;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.inzynierka.Database.Report.ReportEntity;
 import com.example.inzynierka.R;
@@ -24,22 +30,32 @@ public class ListOfReportsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_of_reports);
+        setSupportActionBar((Toolbar)findViewById(R.id.listReportToolbar));
         viewModel = ViewModelProviders.of(this).get(ListOfReportsViewModel.class);
-
-        recyclerViewReportsList = (RecyclerView) findViewById(R.id.my_recycler_view);
+        recyclerViewReportsList = (RecyclerView) findViewById(R.id.listReportRecyclerView);
         recyclerViewReportsList.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(this);
         recyclerViewReportsList.setLayoutManager(layoutManager);
         recyclerViewReportsList.setItemAnimator(new DefaultItemAnimator());
-        reportListAdapter = new ReportListAdapter();
-        recyclerViewReportsList.setAdapter(reportListAdapter);
+        reportListAdapter = new ReportListAdapter(this);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.READ_EXTERNAL_STORAGE}, 101);
 
+        }
+        else {
+            recyclerViewReportsList.setAdapter(reportListAdapter);
+        }
         viewModel.getAllReports().observe(this, new Observer<List<ReportEntity>>() {
             @Override
             public void onChanged(@Nullable final List<ReportEntity> reportEntityList) {
                 // Update the cached copy of the words in the adapter.
                 reportListAdapter.setReports(reportEntityList);
+                for (ReportEntity reportEntity: reportEntityList){
+                    Log.i("ReportEntityList", reportEntity+"");
+                }
             }
         });
     }

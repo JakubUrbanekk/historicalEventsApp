@@ -2,6 +2,8 @@ package com.example.inzynierka.Database;
 
 import android.net.Uri;
 
+import com.example.inzynierka.Database.Photo.PhotoEntity;
+
 import java.util.Date;
 
 import androidx.room.TypeConverter;
@@ -24,6 +26,18 @@ import androidx.room.TypeConverter;
         @TypeConverter
         public static String toString(Uri uri){
             return uri.toString();
+        }
+        @TypeConverter
+        public static PhotoEntity toPhotoEntity(Uri uri){
+            return new PhotoEntity(uri);
+        }
+        @TypeConverter
+        public static String photoToUri(PhotoEntity photoEntity) {
+            if (photoEntity == null) {
+                return "";
+            } else {
+                return photoEntity.getPhotoUri().toString();
+            }
         }
     }
 

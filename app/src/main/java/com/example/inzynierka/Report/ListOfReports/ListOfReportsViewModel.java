@@ -1,4 +1,4 @@
-package com.example.inzynierka.Report;
+package com.example.inzynierka.Report.ListOfReports;
 
 import android.app.Application;
 
