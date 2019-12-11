@@ -1,5 +1,7 @@
 package com.example.inzynierka.Report.AddReport;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,10 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.inzynierka.DataPickerWrapper;
 import com.example.inzynierka.R;
+import com.example.inzynierka.Report.DataPickerWrapper;
 import com.google.android.material.textfield.TextInputEditText;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -22,6 +25,19 @@ public class AddReportDescriptionFragment extends Fragment implements TextWatche
     TextInputEditText editTextDescription;
     TextInputEditText editTextLocalization;
     TextView textViewDate;
+    Activity activity;
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof Activity) {
+            activity = (Activity) context;
+        }
+    }
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,7 +45,8 @@ public class AddReportDescriptionFragment extends Fragment implements TextWatche
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_add_report_description, container, false);
 
-        addReportViewModel = ViewModelProviders.of(getActivity()).get(AddReportViewModel.class);
+        addReportViewModel =  ViewModelProviders.of(getActivity()).get(AddReportViewModel.class);
+        Log.i("Fragment", addReportViewModel.toString());
         editTextReportTitle = rootView.findViewById(R.id.addReportEditTextTitle);
         textViewDate = rootView.findViewById(R.id.addReportTextViewDate);
         editTextReportTitle.addTextChangedListener(this);
@@ -67,7 +84,9 @@ public class AddReportDescriptionFragment extends Fragment implements TextWatche
 
             }
         });
-        DataPickerWrapper dataPickerWrapper = new DataPickerWrapper(textViewDate, addReportViewModel);
+        DataPickerWrapper dataPickerWrapper = new DataPickerWrapper(textViewDate, getContext(), addReportViewModel);
+        addReportViewModel.setReportDate(dataPickerWrapper.getDateFormat().format(dataPickerWrapper.getDate()));
+
         return rootView;
     }
     private String getTitleText(View view){
@@ -89,5 +108,4 @@ public class AddReportDescriptionFragment extends Fragment implements TextWatche
     public void afterTextChanged(Editable editable) {
 
     }
-
 }

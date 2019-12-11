@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="grid_spacer1">20dp</dimen>
+    <dimen name="text_size">60sp</dimen>
+    <dimen name="small_text_size">30sp</dimen>
+    <dimen name="image_item_size">160dp</dimen>
+</resources>

@@ -17,25 +17,34 @@ public class ReportRepository {
         reportDao = db.reportDao();
     }
 
-    public void insert(ReportEntity reportEntity) {
-        new insertAsyncTask(reportDao).execute(reportEntity);
+    public long insert(final ReportEntity reportEntity) {
+        return reportDao.insert(reportEntity);
+
     }
     public LiveData<List<ReportEntity>> getAllReports(){
         return reportDao.getAllReports();
     }
-    private static class insertAsyncTask extends AsyncTask<ReportEntity, Void, Void> {
+    public LiveData<List<ReportEntity>> getReportsByTitleOrder(){
+        return  reportDao.getReportsByTitleOrder();
 
-        private ReportDao asyncReportEntity;
-
-        insertAsyncTask(ReportDao dao) {
-            asyncReportEntity = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final ReportEntity... params) {
-            asyncReportEntity.insert(params[0]);
-            return null;
-        }
-
+    }
+    public void update(ReportEntity reportEntity){
+        AppRoomDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                reportDao.update(reportEntity);
+            }
+        });
+    }
+    public void delete(ReportEntity reportEntity){
+        AppRoomDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                reportDao.delete(reportEntity);
+            }
+        });
+    }
+    public LiveData<ReportEntity> getReportById(Integer id){
+        return reportDao.getReportById(id);
     }
 }

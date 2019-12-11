@@ -1,76 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
     android:layout_height="wrap_content"
- >
+    android:fillViewport="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <LinearLayout
-        android:id="@+id/addReportDescriptionLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/grid_spacer1"
-        android:layout_marginRight="@dimen/grid_spacer1"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/reportAddImageViewMainPhoto">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/photo_description_layout"
+        <LinearLayout
+            android:id="@+id/addReportDescriptionLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone">
+            android:layout_marginLeft="@dimen/grid_spacer1"
+            android:layout_marginRight="@dimen/grid_spacer1"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/reportAddImageViewMainPhoto">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/addReportEditTextPhotoDescription"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/photo_description_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/photo_description" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:visibility="gone"
+                app:hintTextAppearance="@style/TextLabel">
 
-        <TextView
-            android:id="@+id/textViewNoImage"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addReportEditTextPhotoDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/photo_description"
+                    android:textSize="@dimen/text_size" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/textViewNoImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/no_image_text"
+                android:textAlignment="center"
+                android:textSize="@dimen/text_size" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/reportAddRecyclerViewPhotos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/grid_spacer1"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addReportDescriptionLayout" />
+
+        <Button
+            android:id="@+id/reportAddButtonAddPhoto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/no_image_text"
-            android:textAlignment="center"
-            android:textSize="30sp" />
-    </LinearLayout>
+            android:layout_margin="@dimen/grid_spacer1"
+            android:drawableRight="@drawable/camera_icon"
+            android:text="@string/add_photo"
+            android:textSize="@dimen/text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/reportAddRecyclerViewPhotos" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/reportAddRecyclerViewPhotos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/grid_spacer1"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addReportDescriptionLayout" />
-
-    <Button
-        android:id="@+id/reportAddButtonAddPhoto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/grid_spacer1"
-        android:drawableRight="@drawable/camera_icon"
-        android:text="@string/add_photo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/reportAddRecyclerViewPhotos" />
-
-    <ImageView
-        android:id="@+id/reportAddImageViewMainPhoto"
-        android:layout_width="fill_parent"
-        android:layout_height="330dp"
-        android:layout_margin="@dimen/grid_spacer1"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/photo_desccription"
-        android:scaleType="fitXY"
-        android:src="@drawable/noimge"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+        <ImageView
+            android:id="@+id/reportAddImageViewMainPhoto"
+            android:layout_width="fill_parent"
+            android:layout_height="295dp"
+            android:layout_margin="@dimen/grid_spacer1"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/photo_desccription"
+            android:scaleType="fitXY"
+            android:src="@drawable/noimge"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

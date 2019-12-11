@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imageViewReportItemPhoto"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:paddingRight="8dp"
-        android:src="@mipmap/ic_launcher" />
+        android:layout_width="@dimen/image_item_size"
+        android:layout_height="@dimen/image_item_size"
+        android:paddingRight="@dimen/grid_spacer1"
+        android:src="@drawable/noimge" />
 </LinearLayout>

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.inzynierka.EventCreation.EventCreationActivity;
+// import com.example.inzynierka.EventCreation.EventCreationActivity;
 import com.example.inzynierka.Report.ListOfReports.ListOfReportsActivity;
 import com.example.inzynierka.Report.AddReport.AddReportActivity;
 
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void eventCreationListener(View view) {
-        Intent intent = new Intent(MainActivity.this, EventCreationActivity.class);
-        MainActivity.this.startActivity(intent);
+     //   Intent intent = new Intent(MainActivity.this, EventCreationActivity.class);
+       // MainActivity.this.startActivity(intent);
     }
 }

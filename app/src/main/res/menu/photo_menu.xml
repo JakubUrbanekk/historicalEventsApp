@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/editPhotoDescription"
+        android:title="Edytuj opis zdjęcia)"/>
+
+    <item
+        android:id="@+id/deletePhoto"
+        android:title="Usuń zdjęcie"/>
+
+</menu>

@@ -2,37 +2,37 @@ package com.example.inzynierka.Report.AddReport;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.inzynierka.Database.Report.ReportEntity;
+import com.example.inzynierka.Adapters.ViewPagerAdapter;
 import com.example.inzynierka.Database.Photo.PhotoEntity;
+import com.example.inzynierka.Database.Report.ReportEntity;
+import com.example.inzynierka.MainActivity;
 import com.example.inzynierka.R;
+import com.example.inzynierka.Report.FileManager;
 import com.example.inzynierka.Report.ListOfReports.ListOfReportsActivity;
-import com.example.inzynierka.Report.ViewPagerAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -50,31 +50,51 @@ public class AddReportActivity extends AppCompatActivity implements View.OnClick
     private ViewPager mPager;
     private PagerAdapter pagerAdapter;
     FloatingActionButton addReport;
-
-    private File file;
-
+    FileManager fileManager;
+    TabLayout tabLayoutOptionsTab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_report);
         setSupportActionBar((Toolbar) findViewById(R.id.addReportToolbar));
 
-
         reportViewModel = ViewModelProviders.of(this).get(AddReportViewModel.class);
-        mPager = findViewById(R.id.reportAddViewPager);
-        pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        Log.i(TAG, reportViewModel.toString());
+
+        mPager = (ViewPager) findViewById(R.id.reportAddViewPager);
+        pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), this);
         mPager.setAdapter(pagerAdapter);
         addReport = (FloatingActionButton) findViewById(R.id.addReportFloatingButton);
         addReport.setOnClickListener(this);
-        mPager = (ViewPager) findViewById(R.id.reportAddViewPager);
         mPager.addOnPageChangeListener(this);
-
+        tabLayoutOptionsTab = (TabLayout) findViewById(R.id.addReportTabLayout);
+        tabLayoutOptionsTab.setupWithViewPager(mPager);
     }
 
     @Override
     public void onBackPressed() {
         if (mPager.getCurrentItem() == 0) {
-            super.onBackPressed();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AddReport);
+            builder.setMessage(R.string.addReportAlertDialog)
+                    .setTitle(R.string.addReportTitle);
+            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                }
+            });
+            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            TextView tv = (TextView)dialog.getWindow().findViewById(android.R.id.message);
+            TextView tv1 = (TextView)dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            TextView tv2 = (TextView)dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_size));
+            tv2.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.small_text_size));
+            tv1.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.small_text_size));
         } else {
             mPager.setCurrentItem(mPager.getCurrentItem() - 1);
         }
@@ -91,29 +111,44 @@ public class AddReportActivity extends AppCompatActivity implements View.OnClick
 
             }
             else {
-                saveImage();
+                FileManager fileManager = new FileManager(this);
+                fileManager.setImagesToCopy(reportViewModel.getPhotosList());
+                fileManager.saveImage();
             }
             insertToDatabase(reportViewModel.getPhotosList());
             Intent intent = new Intent(AddReportActivity.this, ListOfReportsActivity.class);
             AddReportActivity.this.startActivity(intent);
         } else {
-            Toast.makeText(this, "Podaj tytuł relacji", Toast.LENGTH_SHORT).show();
+            Toast toast = Toast.makeText(this, "Podaj tytuł relacji", Toast.LENGTH_SHORT);
+            LinearLayout toastLayout = (LinearLayout) toast.getView();
+            TextView toastTV = (TextView) toastLayout.getChildAt(0);
+            toastTV.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_size));
+            toast.show();
         }
     }
 
     public void insertToDatabase(List<PhotoEntity> photosEntites) {
         ReportEntity reportEntity = new ReportEntity();
-        reportEntity.setReportDate(Calendar.getInstance().getTime());
+        reportEntity.setReportDate(reportViewModel.getReportDate());
         reportEntity.setMainPhoto(reportViewModel.getMainPhotoUri());
         reportEntity.setReportTitle(reportViewModel.getReportTitle());
         reportEntity.setReportLocalization(reportViewModel.getReportLocalization());
+
+        Executor mExecutor = Executors.newSingleThreadExecutor();
+        mExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                long reportId = reportViewModel.insertReport(reportEntity);
+                for (PhotoEntity photoEntity : photosEntites) {
+                    Log.i(TAG, "Photo " + photoEntity);
+                    photoEntity.setReportId((int)(long)(reportId));
+                    reportViewModel.insertPhoto(photoEntity);
+                }
+            }
+        });
+
         Log.i(TAG, "Report " + reportEntity);
-        for (PhotoEntity photoEntity : photosEntites) {
-            Log.i(TAG, "Photo " + photoEntity);
-            photoEntity.setReportId(reportEntity.getReportId());
-            reportViewModel.insertPhoto(photoEntity);
-        }
-        reportViewModel.insertReport(reportEntity);
+
     }
 
     @Override
@@ -152,38 +187,42 @@ public class AddReportActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onPageSelected(int position) {
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getWindow().getCurrentFocus().getWindowToken(), 0);
+        InputMethodManager inputManager = (InputMethodManager) this.getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        View focusedView = this.getCurrentFocus();
+        if (focusedView != null) {
+            inputManager.hideSoftInputFromWindow(focusedView.getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
 
     }
+    private Date pickDateFromFragment(){
+        return null;
+    }
 
-    private void saveImage() {
+
+/*    private void saveImage() {
 
         file = new File(getExternalFilesDir(null)
                 + File.separator + IMAGE_DIRECTORY +"/");
+
         Log.e("Image directory ", file.toString());
+
         if(!file.exists())
         file.mkdirs();
 
         List<PhotoEntity> photosEntites = reportViewModel.getPhotosList();
-        List<Uri> photosUri = new ArrayList<>();
-        List<File> destinationFiles = new ArrayList<>();
-        List<File> sourceFiles = new ArrayList<>();
-
-        for (PhotoEntity photoEntity : photosEntites) {
-            photosUri.add(photoEntity.getPhotoUri());
-        }
 
         int cut = 0;
         String result = null;
         int i=0;
 
-        for (Uri uri : photosUri) {
-            sourceFiles.add(new File(getRealPathFromURI(uri)));
+        for (PhotoEntity photoEntity : photosEntites) {
+            Uri uri = photoEntity.getPhotoUri();
             result = uri.getPath();
             cut = result.lastIndexOf('/');
             if (cut != -1) {
@@ -197,23 +236,6 @@ public class AddReportActivity extends AppCompatActivity implements View.OnClick
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
-          /*  File destinationFile = new File(file, "img_" + result + "");
-            destinationFile.mkdirs();
-            try {
-                destinationFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            destinationFiles.add(file);
-        }
-        try {
-            for (int i = 0; i < sourceFiles.size(); i++)
-                copyFile(sourceFiles.get(i), destinationFiles.get(i));
-        } catch (IOException e) {
-            e.printStackTrace();
-        */
         }
 
     }
@@ -222,6 +244,7 @@ public class AddReportActivity extends AppCompatActivity implements View.OnClick
        if (!sourceFile.exists()) {
             return null;
         }
+
         File outputFile = new File(destFile, result);
         InputStream in = new FileInputStream(sourceFile);
         OutputStream out = new FileOutputStream(outputFile);
@@ -242,25 +265,7 @@ public class AddReportActivity extends AppCompatActivity implements View.OnClick
         out = null;
 
         return outputFile;
-      /*  FileChannel source = null;
-        FileChannel destination = null;
-        File outputFile = new File(destFile, result);
 
-        source = new FileInputStream(sourceFile).getChannel();
-        destination = new FileOutputStream(outputFile).getChannel();
-        Log.e("Source file ", sourceFile+"");
-        Log.e("Zapisuje do:", outputFile+"");
-        if (destination != null && source != null) {
-            destination.transferFrom(source, 0, source.size());
-        }
-        if (source != null) {
-            source.close();
-        }
-        if (destination != null) {
-            destination.close();
-        }
-
-       */
     }
         private String getRealPathFromURI (Uri contentUri){
             String[] projection = { MediaStore.Images.Media.DATA };
@@ -270,6 +275,6 @@ public class AddReportActivity extends AppCompatActivity implements View.OnClick
             cursor.moveToFirst();
             return cursor.getString(column_index);
         }
-
+*/
     }
 

@@ -5,6 +5,10 @@ import android.os.AsyncTask;
 
 import com.example.inzynierka.Database.AppRoomDatabase;
 
+import java.util.List;
+
+import androidx.lifecycle.LiveData;
+
 public class PhotoRepository {
     private PhotoDao photoDao;
     public PhotoRepository(Application application) {
@@ -13,6 +17,33 @@ public class PhotoRepository {
     }
         public void insert(PhotoEntity photoEntity){
             new insertAsyncTask(photoDao).execute(photoEntity);
+        }
+        public void update(PhotoEntity photoEntity){
+            AppRoomDatabase.databaseWriteExecutor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    photoDao.update(photoEntity);
+                }
+            });
+
+        }
+        public void delete(PhotoEntity photoEntity){
+        AppRoomDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                photoDao.delete(photoEntity);
+            }
+        });
+
+        }
+        public PhotoEntity getPhotoById(Integer id){
+            return photoDao.getPhotoById(id);
+        }
+        public LiveData<List<PhotoEntity>> getPhotosFromReportById(Integer id){
+            return  photoDao.getPhotosFromReportById(id);
+        }
+        public LiveData<PhotoEntity> getPhotoByUri(String uri, Integer id){
+            return photoDao.getPhotoByUri(uri, id);
         }
 
 private static class insertAsyncTask extends AsyncTask<PhotoEntity, Void, Void> {

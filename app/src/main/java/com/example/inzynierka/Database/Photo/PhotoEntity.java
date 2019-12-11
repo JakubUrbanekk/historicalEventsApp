@@ -15,8 +15,8 @@ import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "photo", foreignKeys = @ForeignKey(entity = ReportEntity.class,
         parentColumns = "reportId",
-        childColumns = "reportId",
-        onDelete = CASCADE), indices = {@Index(value = {"photoId", "reportId"})})
+        childColumns = "reportIdForPhoto",
+        onDelete = CASCADE), indices = {@Index(value = {"photoId", "reportIdForPhoto"})})
 public class PhotoEntity {
     @PrimaryKey (autoGenerate = true)
     @NonNull
@@ -24,27 +24,22 @@ public class PhotoEntity {
     @ColumnInfo(name = "uri")
     String photoUri;
     String photoDescription;
-    Integer reportId;
+    Integer reportIdForPhoto;
 
     public String getPhotoDescription() {
         return photoDescription;
     }
-
     public void setPhotoDescription(String photoDescription) {
         this.photoDescription = photoDescription;
     }
-
     public void setPhotoUri(String photoUri) {
         this.photoUri = photoUri;
     }
-
     public PhotoEntity(Uri uri) {
         photoUri = uri.toString();
     }
     public PhotoEntity(){
-
     }
-
     @NonNull
     public Integer getPhotoId() {
         return photoId;
@@ -55,11 +50,11 @@ public class PhotoEntity {
     }
 
     public Integer getReportId() {
-        return reportId;
+        return reportIdForPhoto;
     }
 
     public void setReportId(Integer reportId) {
-        this.reportId = reportId;
+        this.reportIdForPhoto = reportId;
     }
 
     public void setPhotoUri(Uri photoUri) {
@@ -76,7 +71,7 @@ public class PhotoEntity {
         return "PhotoEntity{" +
                 "photoId=" + photoId +
                 ", photoUri='" + photoUri + '\'' +
-                ", reportId=" + reportId +
+                ", reportId=" + reportIdForPhoto +
                 ", opis " + photoDescription
                 +'}';
     }
