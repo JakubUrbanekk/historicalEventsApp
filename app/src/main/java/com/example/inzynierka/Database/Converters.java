@@ -2,6 +2,7 @@ package com.example.inzynierka.Database;
 
 import android.net.Uri;
 
+import com.example.inzynierka.CustomData;
 import com.example.inzynierka.Database.Photo.PhotoEntity;
 
 import java.util.Date;
@@ -23,6 +24,14 @@ import androidx.room.TypeConverter;
             return stringValue == null ? null : Uri.parse(stringValue);
         }
 
+        @TypeConverter
+        public static String customDateToString(CustomData customData){
+            return customData.toString();
+        }
+        @TypeConverter
+        public static CustomData customDateFromString(String cutomDate){
+            return new CustomData(cutomDate);
+        }
         @TypeConverter
         public static String toString(Uri uri){
             return uri.toString();

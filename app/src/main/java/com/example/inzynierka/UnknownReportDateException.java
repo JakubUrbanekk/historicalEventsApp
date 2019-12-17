@@ -1,7 +1,7 @@
 package com.example.inzynierka;
 
 class UnknownReportDateException extends Exception {
-    public UnknownReportDateException(String errorMessage){
-        super(errorMessage);
+    public UnknownReportDateException(){
+        super("Podany format daty nie jest znany. Poprawny format to DD-MM-YYYY");
     }
 }

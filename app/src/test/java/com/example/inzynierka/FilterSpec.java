@@ -82,10 +82,6 @@ public class FilterSpec {
         filter = new Filter(reports, photos);
     }
     @Test
-    void reportWithoutPhotosHaveNoPhotos(){
-
-    }
-    @Test
     void checkReportWithPhotosHaveCorrectPhotosList(){
         List <PhotoEntity> photoEntities = filter.getPhotosFromReport(reportWithPhotosWithMainPhoto);
         List <PhotoEntity> expected = Arrays.asList(photoForFirstReport1, photoForFirstReport2, photoForFirstReport3);
@@ -104,5 +100,47 @@ public class FilterSpec {
         expected.stream().forEach(reportEntity -> System.out.println("stworzona lista " + reportEntity));
         assertThat("Powinno zwrócić raporty, z liczbą zdjęć, większą niz 0", reportEntities, containsInAnyOrder(expected.toArray()));
     }
+    @Test
+    void getReportsFromLastYear(){
+        reportWithOnePhoto.setReportDate("12-10-2019");
+        reportWithPhotosWithMainPhoto.setReportDate("15-12-2019");
+        reportWithoutPhotos.setReportDate("12-10-2017");
+        List<ReportEntity> expected = Arrays.asList(reportWithOnePhoto, reportWithPhotosWithMainPhoto);
+        List<ReportEntity> result = filter.getReportsFromPastYears(1);
+        assertThat("Raporty z poprzedniego roku", result, containsInAnyOrder(expected.toArray()));
+    }
+    @Test
+    void getReportsFrom2017Year(){
+        reportWithoutPhotos.setReportDate("12-10-2017");
+        reportWithOnePhoto.setReportDate("11-11-2016");
+        List<ReportEntity> expected = Arrays.asList(reportWithoutPhotos);
+        List<ReportEntity> result = filter.getReportsFromSelectedYear(2017);
+        assertThat("Filtr zwrocil raporty nie z 2017 roku", result, containsInAnyOrder(expected.toArray()));
+    }
+    @Test
+    void getReportsFrom2017andJanuary(){
+        reportWithoutPhotos.setReportDate("02-01-2017");
+        reportWithOnePhoto.setReportDate("11-11-2016");
+        List<ReportEntity> expected = Arrays.asList(reportWithoutPhotos);
+        List<ReportEntity> result = filter.getReportsFromSelectedYearAndMonth(2017, 1);
+        assertThat("Filtr zwrocil raporty nie z Stycznia 2017 roku", result, containsInAnyOrder(expected.toArray()));
+    }
+    @Test
+    void getReportThatTitleSubstringIsAsd(){
+        reportWithOnePhoto.setReportTitle("asdqwe");
+        reportWithoutPhotos.setReportTitle("nbmasd");
+        reportWithPhotosWithMainPhoto.setReportTitle("zxcbnbf");
+        List<ReportEntity> expected = Arrays.asList(reportWithOnePhoto, reportWithoutPhotos);
+        List<ReportEntity> result = filter.getReportsByReportTitle("Asd");
+        assertThat("Filtr zwrocil bledne tytuly. Prawidlowe tytuly powinny zawierac asd", result, containsInAnyOrder(expected.toArray()));
+    }
+    @Test
+    void getReportThatLocalizationIsWroclaw(){
+        reportWithoutPhotos.setReportLocalization("Wroclaw");
+        reportWithOnePhoto.setReportLocalization("Gdansk");
+        reportWithPhotosWithMainPhoto.setReportLocalization("Wroclaw Psie Pole");
+        List <ReportEntity> expected = Arrays.asList(reportWithoutPhotos, reportWithPhotosWithMainPhoto);
+        List <ReportEntity> result = filter.getReportsByReportLocalization("wroclaw");
 
+    }
 }

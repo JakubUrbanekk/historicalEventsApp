@@ -2,6 +2,7 @@ package com.example.inzynierka.Database.Report;
 
 import android.net.Uri;
 
+import com.example.inzynierka.CustomData;
 import com.example.inzynierka.Database.Photo.PhotoEntity;
 
 import androidx.annotation.NonNull;
@@ -15,7 +16,7 @@ public class ReportEntity {
     @NonNull
     Integer reportId;
     String reportDescription;
-    String reportDate;
+    CustomData reportDate;
     @Nullable
     PhotoEntity mainPhoto;
     String reportLocalization;
@@ -49,10 +50,11 @@ public class ReportEntity {
         this.reportDescription = reportDescription;
     }
     public String getReportDate() {
-        return reportDate;
+        return reportDate.toString();
     }
     public void setReportDate(String reportDate) {
-        this.reportDate = reportDate;
+        CustomData customData = new CustomData(reportDate);
+        this.reportDate = customData;
     }
     public Uri getMainPhoto() {
         return mainPhoto.getPhotoUri();
@@ -62,6 +64,9 @@ public class ReportEntity {
     }
     public void setMainPhoto(PhotoEntity photoEntity){
         this.mainPhoto = photoEntity;
+    }
+    public CustomData getDate(){
+        return reportDate;
     }
     @Override
     public String toString() {
