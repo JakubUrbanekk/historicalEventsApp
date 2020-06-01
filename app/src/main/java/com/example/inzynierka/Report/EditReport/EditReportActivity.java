@@ -73,8 +73,8 @@ public class EditReportActivity extends EditableReportActivity {
 
 
     @Override
-    protected int setAlertDialogMessage() {
-        return R.string.editReportAlertDialog;
+    protected String setAlertDialogMessage() {
+        return "Czy chcesz anulować edycje relacji?";
     }
 
     @Override

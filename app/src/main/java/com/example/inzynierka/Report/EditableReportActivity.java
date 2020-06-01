@@ -40,9 +40,9 @@ import com.example.inzynierka.Database.equipment.weapons.WeaponRepository;
 import com.example.inzynierka.Database.videos.VideoEntity;
 import com.example.inzynierka.R;
 import com.example.inzynierka.Report.ListOfReports.ListOfReportsActivity;
-import com.example.inzynierka.utils.CityPicker;
-import com.example.inzynierka.utils.Constans;
-import com.example.inzynierka.utils.Constant;
+import com.example.inzynierka.addons.CityPicker;
+import com.example.inzynierka.addons.CustomAlertDialog;
+import com.example.inzynierka.addons.FinalVariables;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -96,7 +96,6 @@ public abstract class EditableReportActivity extends OpenPhotoGalleryActivity im
     protected PhotosAdapter aVideoAdapter;
     protected FullScreenImageAdapter aFullScreenPhotos;
     FullScreenVideoAdapter aFullScreenVideos;
-    com.example.inzynierka.Report.Utils utils;
     protected TextInputEditText etDescription;
     private ImageView bAddVideo;
     ActionBottomDialogFragment addPhotoBottomDialogFragment;
@@ -114,7 +113,7 @@ public abstract class EditableReportActivity extends OpenPhotoGalleryActivity im
     private final int SPINNER_WEAPON = 4;
     private final int SPINNER_ACCESSORY = 5;
     private final int SPINNER_POJAZD = 6;
-
+    CustomAlertDialog customAlertDialog;
     private final int PERMISSION_ID = 202;
     FusedLocationProviderClient mFusedLocationClient;
     Activity currentActivity;
@@ -127,7 +126,7 @@ public abstract class EditableReportActivity extends OpenPhotoGalleryActivity im
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_report);
-        utils = new com.example.inzynierka.Report.Utils(this);
+        customAlertDialog = new CustomAlertDialog(this);
         Intent intent = getIntent();
         currentReportId = intent.getIntExtra("currentReport", -1);
         currentActivity = this;
@@ -251,22 +250,22 @@ public abstract class EditableReportActivity extends OpenPhotoGalleryActivity im
                 addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, "Dodaj nową", spinnerAdapter.getCount());
                 break;
             case SPINNER_ACCESSORY:
-                addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, Constant.ACCESSORY_NOT_SELECTED_CONST, 0);
+                addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, FinalVariables.ACCESSORY_NOT_SELECTED_CONST, 0);
                 new GetAccessoriesseAsyncTask(spinnerAdapter.getCount(), (ArrayAdapter<String>)spinnerAdapter).execute();
                 addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, "Dodaj nową", spinnerAdapter.getCount());
                 break;
             case SPINNER_CLOTH:
-                addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, Constant.CLOTH_NOT_SELECTED_CONST, 0);
+                addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, FinalVariables.CLOTH_NOT_SELECTED_CONST, 0);
                 new GetClothAsyncTask(spinnerAdapter.getCount(), (ArrayAdapter<String>)spinnerAdapter).execute();
                 addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, "Dodaj nową", spinnerAdapter.getCount());
                 break;
             case SPINNER_POJAZD:
-                addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, Constant.VEHICLE_NOT_SELECTED_CONST, 0);
+                addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, FinalVariables.VEHICLE_NOT_SELECTED_CONST, 0);
                 new GetVehicleAsyncTask(spinnerAdapter.getCount(), (ArrayAdapter<String>)spinnerAdapter).execute();
                 addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, "Dodaj nową", spinnerAdapter.getCount());
                 break;
             case SPINNER_WEAPON:
-                addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, Constant.WEAPON_NOT_SELECTED_CONST, 0);
+                addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, FinalVariables.WEAPON_NOT_SELECTED_CONST, 0);
                 new GetWeaponAsyncTask(spinnerAdapter.getCount(), (ArrayAdapter<String>)spinnerAdapter).execute();
                 addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, "Dodaj nową", spinnerAdapter.getCount());
                 break;
@@ -387,12 +386,12 @@ public abstract class EditableReportActivity extends OpenPhotoGalleryActivity im
         }
         else {
             int titleID = setAlertDialogTitle();
-            int messageID = setAlertDialogMessage();
-            utils.createAlertDialog(titleID, messageID);
+            String messageID = setAlertDialogMessage();
+            customAlertDialog.createAlertDialog(titleID, messageID);
         }
     }
 
-    protected abstract int setAlertDialogMessage();
+    protected abstract String setAlertDialogMessage();
 
     protected abstract int setAlertDialogTitle();
 

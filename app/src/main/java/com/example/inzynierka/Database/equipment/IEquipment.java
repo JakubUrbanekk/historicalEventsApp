@@ -1,6 +1,8 @@
 package com.example.inzynierka.Database.equipment;
 
 
+import com.example.inzynierka.addons.FinalVariables;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import lombok.AllArgsConstructor;
@@ -31,7 +33,7 @@ public class IEquipment {
     }
     public IEquipment(String name){
         this.name = name;
-        this.category = "Brak";
+        this.category = FinalVariables.CLOTH_NOT_SELECTED_CONST;
         this.photoUri = "";
         this.description = "Brak";
     }

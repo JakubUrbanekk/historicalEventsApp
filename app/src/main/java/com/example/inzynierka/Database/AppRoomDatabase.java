@@ -31,7 +31,7 @@ import androidx.room.TypeConverters;
 
 @Database(entities = {PhotoEntity.class, ReportEntity.class, VideoEntity.class, LocalizationEntity.class,
         EventDetails.class, ClothEntity.class, WeaponEntity.class, AccessoriesEntity.class, VehicleEntity.class},
-        version = 43, exportSchema = false)
+        version = 45, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppRoomDatabase extends RoomDatabase {
     private static final int NUMBER_OF_THREADS = 4;

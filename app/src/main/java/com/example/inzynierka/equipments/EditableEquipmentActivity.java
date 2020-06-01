@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.inzynierka.R;
 import com.example.inzynierka.Report.ActionBottomDialogFragment;
+import com.example.inzynierka.addons.FinalVariables;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -79,7 +80,7 @@ public abstract class EditableEquipmentActivity extends EquipmentBundleActivity 
     protected abstract void addToDatabase();
 
     protected String getStringFromEditText(TextInputEditText editTextTitle) {
-        if(editTextTitle.getText() != null){
+        if(editTextTitle.getText() != null && !StringUtils.isEmpty(editTextTitle.getText())){
             return editTextTitle.getText().toString();
         }
         return "Brak";
@@ -236,7 +237,7 @@ public abstract class EditableEquipmentActivity extends EquipmentBundleActivity 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position == count - 1){
+                if(spinner.getSelectedItem().toString().equals(FinalVariables.CATEGORY_ADD_NEW)){
                     createDialogBoxWithEditText(spinner);
                 }
             }

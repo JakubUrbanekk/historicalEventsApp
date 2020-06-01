@@ -28,8 +28,8 @@ public class AddReportActivity extends EditableReportActivity {
     }
 
     @Override
-    protected int setAlertDialogMessage() {
-        return R.string.addReportAlertDialog;
+    protected String setAlertDialogMessage() {
+        return "Czy chcesz anulować dodawanie relacji?";
     }
 
     @Override

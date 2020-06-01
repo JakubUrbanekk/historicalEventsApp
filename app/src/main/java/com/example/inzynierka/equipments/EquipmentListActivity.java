@@ -10,7 +10,7 @@ import com.example.inzynierka.Database.Report.ReportEntity;
 import com.example.inzynierka.Database.Report.ReportRepository;
 import com.example.inzynierka.Database.equipment.IEquipment;
 import com.example.inzynierka.R;
-import com.example.inzynierka.addons.Constant;
+import com.example.inzynierka.addons.FinalVariables;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.HashSet;
@@ -94,7 +94,7 @@ public class EquipmentListActivity extends EquipmentBundleActivity {
             switch (bundleValue){
                 case MainEquipmentsActivity.BUNDLE_EQUIPMENT_CLOTH:
                     List<String> mappedToString = list.stream()
-                            .filter(reportEntity ->  !reportEntity.getVehicle().equals(Constant.CLOTH_NOT_SELECTED_CONST))
+                            .filter(reportEntity ->  !reportEntity.getVehicle().equals(FinalVariables.CLOTH_NOT_SELECTED_CONST))
                             .map(report ->report.getCloth())
                             .collect(Collectors.toList());
                     Set<String> set = new HashSet<>(mappedToString);
@@ -102,7 +102,7 @@ public class EquipmentListActivity extends EquipmentBundleActivity {
                     break;
                 case MainEquipmentsActivity.BUNDLE_EQUIPMENT_WEAPON:
                     List<String> mappedToString2 = list.stream()
-                            .filter(reportEntity ->  !reportEntity.getVehicle().equals(Constant.WEAPON_NOT_SELECTED_CONST))
+                            .filter(reportEntity ->  !reportEntity.getVehicle().equals(FinalVariables.WEAPON_NOT_SELECTED_CONST))
                             .map(report ->report.getWeapon())
                             .collect(Collectors.toList());
                     Set<String> set2 = new HashSet<>(mappedToString2);
@@ -111,7 +111,7 @@ public class EquipmentListActivity extends EquipmentBundleActivity {
                 case MainEquipmentsActivity.BUNDLE_EQUIPMENT_VEHICLE:
                     log.info("Vehicle list");
                     List<String> mappedToString3 = list.stream()
-                            .filter(reportEntity ->  !reportEntity.getVehicle().equals(Constant.VEHICLE_NOT_SELECTED_CONST))
+                            .filter(reportEntity ->  !reportEntity.getVehicle().equals(FinalVariables.VEHICLE_NOT_SELECTED_CONST))
                             .map(report ->report.getVehicle())
                             .collect(Collectors.toList());
                     Set<String> set3 = new HashSet<>(mappedToString3);
@@ -119,7 +119,7 @@ public class EquipmentListActivity extends EquipmentBundleActivity {
                     break;
                 case MainEquipmentsActivity.BUNDLE_EQUIPMENT_ACCESSORIES:
                     List<String> mappedToString4 = list.stream()
-                            .filter(reportEntity ->  !reportEntity.getVehicle().equals(Constant.ACCESSORY_NOT_SELECTED_CONST))
+                            .filter(reportEntity ->  !reportEntity.getVehicle().equals(FinalVariables.ACCESSORY_NOT_SELECTED_CONST))
                             .map(report ->report.getAccessory())
                             .collect(Collectors.toList());
                     Set<String> set4 = new HashSet<>(mappedToString4);
