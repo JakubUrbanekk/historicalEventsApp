@@ -1,5 +1,7 @@
 package com.example.inzynierka;
 
+import com.example.inzynierka.CustomDate.CustomData;
+import com.example.inzynierka.CustomDate.UnknownReportDateException;
 import com.example.inzynierka.Database.Report.ReportEntity;
 
 import org.junit.jupiter.api.Assertions;
@@ -7,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -40,7 +41,7 @@ public class CustomDataSpec {
     }
     @Test
     void isMonthValueEqualsToTwelveIfDateStringHaveTwelveMonthValue(){
-        assertEquals("Data pobiera zły dzień z daty", customData.getDay(), Integer.toString(12));
+        assertEquals("Data pobiera nieprawidłowy dzień z daty", customData.getDay(), Integer.toString(12));
     }
     @Test
     void isDateSplitIntoSubstringCorrectly(){
@@ -70,9 +71,9 @@ public class CustomDataSpec {
         String pattern = "dd-MM-yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         Calendar calendar = new GregorianCalendar();
-        calendar.set(Calendar.YEAR, 2019);
-        calendar.set(Calendar.MONTH, 1);
-        calendar.set(Calendar.DAY_OF_MONTH, 15);
+        calendar.set(Calendar.YEAR, 2018);
+        calendar.set(Calendar.MONTH, 11);
+        calendar.set(Calendar.DAY_OF_MONTH, 22);
         String date = simpleDateFormat.format(calendar.getTime());
         CustomData customDataToCompare = new CustomData(date);
 
@@ -84,7 +85,7 @@ public class CustomDataSpec {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         Calendar calendar = new GregorianCalendar();
         calendar.set(Calendar.YEAR, 2019);
-        calendar.set(Calendar.MONTH, 11);
+        calendar.set(Calendar.MONTH, 10);
         calendar.set(Calendar.DAY_OF_MONTH, 15);
         String date = simpleDateFormat.format(calendar.getTime());
         CustomData customDataToCompare = new CustomData(date);
@@ -121,15 +122,9 @@ public class CustomDataSpec {
         Calendar calendar = new GregorianCalendar();
         calendar.set(Calendar.YEAR, 2019);
         calendar.set(Calendar.MONTH, 11);
-        calendar.set(Calendar.DAY_OF_MONTH, 17);
+        calendar.set(Calendar.DAY_OF_MONTH, 20);
         String date = simpleDateFormat.format(calendar.getTime());
         CustomData customDataToCompare = new CustomData(date);
         assertTrue("Zwrocono date pozniejsza niz miesiac temu", CustomData.checkIfDateIsFromPastDays(2, customDataToCompare));
-    }
-    @Test
-    void customDateToLocalDateApiCorrectly(){
-        LocalDate localDate = LocalDate.now();
-        LocalDate currentLocalDate = currentData.converToLocalDate();
-        assertEquals("Zmiana customDate na LocalDate przebiegla niepoprawnie", currentLocalDate.toString(), localDate.toString());
     }
 }

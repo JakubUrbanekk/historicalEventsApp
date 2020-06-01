@@ -26,4 +26,14 @@
     <string name="deleteReportTitle">Usuń relacje</string>
     <string name="deleteReportAlertDialog">Czy chcesz usunąć relację?</string>
     <string name="add_first_report">Nie masz jeszcze żadnych relacji. Dodaj swoją pierwszą relację.</string>
+    <string name="maxPhotosAmount">Podaj maksymalna liczbę zdjęć</string>
+    <string name="minPhotosAmount">Podaj minimalna liczbę zdjęć</string>
+    <string name="customDate">Wybierz własną datę</string>
+    <string name="pickDate">Wybierz datę</string>
+    <string name="pickTitle">Wpisz tytuł relacji</string>
+    <string name="filter_activated">Filtr jest aktywny.</string>
+    <string name="filter_empty_result">Nie znaleziono żadnych relacji o określonym filtrze</string>
+    <string name="fromGallery">Dodaj zdjęcie z galerii</string>
+    <string name="from_camera">Dodaj zdjęcie z aparatu</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

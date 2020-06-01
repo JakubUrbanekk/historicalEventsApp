@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemPhotoLL"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="24dp"
+    android:orientation="vertical">
+
+    <VideoView
+        android:id="@+id/itemVideo"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/big_image"
+        android:layout_margin="8dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/noimge" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/itemVideoTL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textColor="@color/quantum_black_100"
+        android:textColorHint="@color/quantum_black_text"
+        android:theme="@style/Theme2"
+        android:gravity="center">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/itemVideoET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/quantum_black_100"
+            android:theme="@style/Theme2"
+            android:hint="Opis" />
+    </com.google.android.material.textfield.TextInputLayout>
+</LinearLayout>

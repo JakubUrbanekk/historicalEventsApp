@@ -2,7 +2,7 @@ package com.example.inzynierka.Database;
 
 import android.net.Uri;
 
-import com.example.inzynierka.CustomData;
+import com.example.inzynierka.CustomDate.CustomData;
 import com.example.inzynierka.Database.Photo.PhotoEntity;
 
 import java.util.Date;

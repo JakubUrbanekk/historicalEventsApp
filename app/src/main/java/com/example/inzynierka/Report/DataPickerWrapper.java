@@ -2,16 +2,11 @@ package com.example.inzynierka.Report;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.res.Configuration;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
-import com.example.inzynierka.Report.AddReport.AddReportViewModel;
-
 import java.text.DateFormat;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -24,14 +19,12 @@ public class DataPickerWrapper implements android.view.View.OnFocusChangeListene
     private DatePickerDialog dialog = null;
     private Date currentDate = null;
     private Context context;
-    private CustomViewModel customViewModel;
 
-    public DataPickerWrapper(TextView display, Context context, CustomViewModel customViewModel) {
+    public DataPickerWrapper(TextView display, Context context) {
         this.display = display;
         this.display.setFocusable(true);
         this.display.setClickable(true);
         this.display.setOnFocusChangeListener(this);
-        this.customViewModel = customViewModel;
         this.setDate(new Date());
         this.context = context;
     }
@@ -69,8 +62,7 @@ public class DataPickerWrapper implements android.view.View.OnFocusChangeListene
                     calendar.get(Calendar.DAY_OF_MONTH)
             );
         }
-        Log.i("Current date ", currentDate.toString());
-        customViewModel.setReportDate(dateFormat.format(currentDate));
+
     }
     void openDatePickerDialog() {
 

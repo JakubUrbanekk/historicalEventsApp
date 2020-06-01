@@ -15,8 +15,8 @@ public class PhotoRepository {
         AppRoomDatabase db = AppRoomDatabase.getDatabase(application);
         photoDao = db.photoDao();
     }
-        public void insert(PhotoEntity photoEntity){
-            new insertAsyncTask(photoDao).execute(photoEntity);
+        public long insert(PhotoEntity photoEntity){
+            return photoDao.insert(photoEntity);
         }
         public void update(PhotoEntity photoEntity){
             AppRoomDatabase.databaseWriteExecutor.execute(new Runnable() {
@@ -27,6 +27,11 @@ public class PhotoRepository {
             });
 
         }
+
+        public LiveData<List<PhotoEntity>> getAllPhotos() {
+                return photoDao.getAllPhotos();
+        }
+
         public void delete(PhotoEntity photoEntity){
         AppRoomDatabase.databaseWriteExecutor.execute(new Runnable() {
             @Override
@@ -36,17 +41,20 @@ public class PhotoRepository {
         });
 
         }
+
         public PhotoEntity getPhotoById(Integer id){
             return photoDao.getPhotoById(id);
         }
+
         public LiveData<List<PhotoEntity>> getPhotosFromReportById(Integer id){
             return  photoDao.getPhotosFromReportById(id);
         }
+
         public LiveData<PhotoEntity> getPhotoByUri(String uri, Integer id){
             return photoDao.getPhotoByUri(uri, id);
         }
 
-private static class insertAsyncTask extends AsyncTask<PhotoEntity, Void, Void> {
+    private static class insertAsyncTask extends AsyncTask<PhotoEntity, Void, Void> {
 
     private PhotoDao asyncPhotoDao;
 
@@ -60,6 +68,7 @@ private static class insertAsyncTask extends AsyncTask<PhotoEntity, Void, Void> 
         return null;
     }
     }
+
 }
 
 

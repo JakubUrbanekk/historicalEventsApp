@@ -4,6 +4,9 @@ import android.net.Uri;
 
 import com.example.inzynierka.Database.Report.ReportEntity;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -17,7 +20,7 @@ import static androidx.room.ForeignKey.CASCADE;
         parentColumns = "reportId",
         childColumns = "reportIdForPhoto",
         onDelete = CASCADE), indices = {@Index(value = {"photoId", "reportIdForPhoto"})})
-public class PhotoEntity {
+public class PhotoEntity implements Serializable {
     @PrimaryKey (autoGenerate = true)
     @NonNull
     Integer photoId;
@@ -29,6 +32,7 @@ public class PhotoEntity {
     public String getPhotoDescription() {
         return photoDescription;
     }
+
     public void setPhotoDescription(String photoDescription) {
         this.photoDescription = photoDescription;
     }
@@ -74,6 +78,19 @@ public class PhotoEntity {
                 ", reportId=" + reportIdForPhoto +
                 ", opis " + photoDescription
                 +'}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PhotoEntity that = (PhotoEntity) o;
+        return photoId.equals(that.photoId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(photoId);
     }
 }
 

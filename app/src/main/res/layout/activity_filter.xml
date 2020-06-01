@@ -1,9 +1,487 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Report.ListOfReports.FilterActivity">
+    android:layout_margin="8dp"
+    android:background="@color/colorPrimaryLight"
+    tools:context=".Report.ListOfReports.ListOfReportsActivity">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:paddingBottom="100dp"
+        android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/reportTitleTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorPrimaryDark"
+                android:alpha="2.0"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center_horizontal"
+                android:text="Dodaj relację"
+                android:textColor="@color/quantum_black_text"
+                android:layout_marginBottom="0dp"
+                android:textSize="30dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tytuł"
+                android:drawableStart="@drawable/ic_title_big"
+                android:textSize="24sp"
+                android:layout_margin="8dp"
+                android:textColor="@color/quantum_black_text"
+                />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:textColor="@color/quantum_black_100"
+                android:textColorHint="@color/quantum_black_text"
+                android:theme="@style/Theme2"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/filterETpickTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/quantum_black_100"
+                    android:theme="@style/Theme2"
+                    android:hint="@string/pickTitle" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimaryDark"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lokalizacja"
+                android:textSize="24sp"
+                android:drawableStart="@drawable/ic_city_big"
+                android:layout_margin="8dp"
+                android:textColor="@color/quantum_black_text"
+                />
+            <Spinner
+                android:id="@+id/filterSPickLocalization"
+                android:layout_width="match_parent"
+                android:textColor="@color/quantum_black_100"
+                android:textColorHint="@color/quantum_black_text"
+                android:theme="@style/Theme2"
+                android:textSize="14sp"
+                android:layout_marginStart="8dp"
+                android:layout_height="wrap_content" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimaryDark"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimaryDark"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                >
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kategoria"
+                android:textSize="24sp"
+                android:drawableStart="@drawable/ic_city_big"
+                android:layout_margin="8dp"
+                android:textColor="@color/quantum_black_text"
+                />
+            <Spinner
+                android:id="@+id/filterSpinnerCategory"
+                android:layout_width="match_parent"
+                android:textColor="@color/quantum_black_100"
+                android:textColorHint="@color/quantum_black_text"
+                android:theme="@style/Theme2"
+                android:textSize="14sp"
+                android:layout_marginStart="8dp"
+                android:layout_height="wrap_content" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimaryDark"/>
+            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Epoka"
+                        android:textSize="24sp"
+                        android:drawableStart="@drawable/ic_city_big"
+                        android:layout_margin="8dp"
+                        android:textColor="@color/quantum_black_text"
+                        />
+                    <Spinner
+                        android:id="@+id/filterSpinnerEpoka"
+                        android:layout_width="match_parent"
+                        android:textColor="@color/quantum_black_100"
+                        android:textColorHint="@color/quantum_black_text"
+                        android:theme="@style/Theme2"
+                        android:textSize="14sp"
+                        android:layout_marginStart="8dp"
+                        android:layout_height="wrap_content" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorPrimaryDark"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                >
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Strój"
+                        android:textSize="24sp"
+                        android:drawableStart="@drawable/ic_city_big"
+                        android:layout_margin="8dp"
+                        android:textColor="@color/quantum_black_text"
+                        />
+                    <Spinner
+                        android:id="@+id/filterSpinnerCloth"
+                        android:layout_width="match_parent"
+                        android:textColor="@color/quantum_black_100"
+                        android:textColorHint="@color/quantum_black_text"
+                        android:theme="@style/Theme2"
+                        android:textSize="14sp"
+                        android:layout_marginStart="8dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Broń"
+                        android:textSize="24sp"
+                        android:drawableStart="@drawable/ic_city_big"
+                        android:layout_margin="8dp"
+                        android:textColor="@color/quantum_black_text"
+                        />
+                    <Spinner
+                        android:id="@+id/filterSpinnerWeapon"
+                        android:layout_width="match_parent"
+                        android:textColor="@color/quantum_black_100"
+                        android:textColorHint="@color/quantum_black_text"
+                        android:theme="@style/Theme2"
+                        android:textSize="14sp"
+                        android:layout_marginStart="8dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                >
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Akcesoria"
+                        android:textSize="24sp"
+                        android:drawableStart="@drawable/ic_city_big"
+                        android:layout_margin="8dp"
+                        android:textColor="@color/quantum_black_text"
+                        />
+                    <Spinner
+                        android:id="@+id/filterSpinnerAccessory"
+                        android:layout_width="match_parent"
+                        android:textColor="@color/quantum_black_100"
+                        android:textColorHint="@color/quantum_black_text"
+                        android:theme="@style/Theme2"
+                        android:textSize="14sp"
+                        android:layout_marginStart="8dp"
+                        android:layout_height="wrap_content" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorPrimaryDark"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pojazd"
+                        android:textSize="24sp"
+                        android:drawableStart="@drawable/ic_city_big"
+                        android:layout_margin="8dp"
+                        android:textColor="@color/quantum_black_text"
+                        />
+                    <Spinner
+                        android:id="@+id/filterSpinnerVehicle"
+                        android:layout_width="match_parent"
+                        android:textColor="@color/quantum_black_100"
+                        android:textColorHint="@color/quantum_black_text"
+                        android:theme="@style/Theme2"
+                        android:textSize="14sp"
+                        android:layout_marginStart="8dp"
+                        android:layout_height="wrap_content" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorPrimaryDark"/>
+                </LinearLayout>
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Multimedia"
+                android:drawableStart="@drawable/ic_gallery_big"
+                android:textSize="24sp"
+                android:layout_margin="8dp"
+                android:textColor="@color/quantum_black_text"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Podaj zakres zdjęć"
+                android:textSize="14sp"
+                android:layout_margin="8dp"
+                android:textColor="@color/quantum_black_text"
+                />
+
+            <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+                android:id="@+id/rangeSeekbar1"
+                android:layout_width="match_parent"
+                android:layout_margin="8dp"
+                android:layout_height="wrap_content" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/minPhotoSeekBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/date"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/quantum_black_100"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                   />
+                <TextView
+                    android:id="@+id/maxPhotoSeekBar"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_gravity="bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/date"
+                    android:textColor="@color/quantum_black_100"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Podaj zakres filmów"
+                android:textSize="14sp"
+                android:layout_margin="8dp"
+                android:textColor="@color/quantum_black_text"
+                />
+            <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+                android:id="@+id/rangeSeekbarVideos"
+                android:layout_width="match_parent"
+                android:layout_margin="8dp"
+                android:layout_height="wrap_content" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/minVideoSeekBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/date"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/quantum_black_100"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+                <TextView
+                    android:id="@+id/maxVideoSeekBar"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_gravity="bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/date"
+                    android:textColor="@color/quantum_black_100"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimaryDark"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Data"
+                android:drawableStart="@drawable/ic_date_big"
+                android:textSize="24sp"
+                android:layout_margin="8dp"
+                android:textColor="@color/quantum_black_text"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <RadioGroup
+                    android:id="@+id/filterRGWhichDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/quantum_black_100"
+                    android:theme="@style/Theme2"
+                    android:layout_weight="2">
+
+                    <RadioButton
+                        android:id="@+id/filterRBPickDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="@color/quantum_black_100"
+                        android:textColorHint="@color/quantum_black_text"
+                        android:theme="@style/Theme2"
+                        android:text="@string/pickDate" />
+
+                    <RadioButton
+                        android:id="@+id/filterRBPickCustomDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="@color/quantum_black_100"
+                        android:textColorHint="@color/quantum_black_text"
+                        android:theme="@style/Theme2"
+                        android:text="@string/customDate" />
+                </RadioGroup>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:id="@+id/filterLLMonthAndYear"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_gravity="top"
+                        android:layout_marginStart="8dp"
+                        android:visibility="gone">
+
+                        <Spinner
+                            android:id="@+id/filterSPickYear"
+                            android:layout_width="match_parent"
+                            android:textColor="@color/quantum_black_100"
+                            android:theme="@style/Theme2"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+                        <Spinner
+                            android:id="@+id/filterSPickMonth"
+                            android:layout_width="match_parent"
+                            android:textColor="@color/quantum_black_100"
+                            android:theme="@style/Theme2"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                    </LinearLayout>
+
+                    <Spinner
+                        android:id="@+id/filterSPickDate"
+                        android:layout_width="match_parent"
+                        android:textColor="@color/quantum_black_100"
+                        android:textColorHint="@color/quantum_black_text"
+                        android:theme="@style/Theme2"
+                        android:layout_gravity="top"
+                        android:gravity="top"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_height="wrap_content" />
+                </FrameLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addReportFloatingButton"
+        android:layout_width="42dp"
+        android:layout_height="37dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="end|bottom"
+        android:layout_marginEnd="14dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="end"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_check_black_24dp" />
+
+</RelativeLayout>

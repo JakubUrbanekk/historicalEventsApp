@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffc046"
     tools:context=".Report.ListOfReports.ListOfReportsActivity">
 
     <LinearLayout
@@ -19,13 +20,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/listReportToolbar"
+            <TextView
+                android:id="@+id/reportsListTVFilterActivated"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme" />
+                android:text="@string/filter_activated"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:layout_margin="8dp"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/ListReportFiltrAndSortButtonsLayout"
@@ -36,18 +39,26 @@
 
                 <Button
                     android:id="@+id/listOfReportsFiltrButton"
-                    style="@style/Widget.AppCompat.ButtonBar"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="#000000"
+                    android:background="#ff8f00"
+                    android:textSize="14sp"
+                    android:layout_margin="8dp"
+                    android:drawableLeft="@drawable/ic_filter_list_black_24dp"
                     android:text="@string/filtr" />
 
                 <Button
                     android:id="@+id/listOfReportsSortButton"
-                    style="@style/Widget.AppCompat.ButtonBar"
                     android:layout_width="fill_parent"
+                    android:textSize="14sp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:background="#ff8f00"
+                    android:textColor="#000000"
+                    android:drawableLeft="@drawable/ic_sort_black_24dp"
                     android:text="@string/sort" />
             </LinearLayout>
 
@@ -81,6 +92,9 @@
                         android:id="@+id/listOfReportsNoReportTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:textSize="28sp"
+                        android:layout_margin="8dp"
                         android:text="@string/add_first_report" />
                 </LinearLayout>
 
@@ -94,17 +108,14 @@
                     app:layout_constraintTop_toBottomOf="@id/listOfReportsNoImageLayout">
 
 
-                    <SearchView
-                        android:id="@+id/reportListSearchView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:queryHint="@string/search_tooltip2" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/listReportRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scrollbars="vertical"></androidx.recyclerview.widget.RecyclerView>
+                        android:scrollbars="vertical">
+
+                    </androidx.recyclerview.widget.RecyclerView>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
@@ -113,14 +124,17 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addReportFloatingButton"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_gravity="end|bottom"
         android:clickable="true"
+        android:padding="10dp"
         android:focusable="true"
         android:gravity="end"
-        app:srcCompat="@drawable/add_icon" />
+        android:scaleType="center"
+        android:backgroundTint="#ff8f00"
+        android:src = "@drawable/ic_add_black_24dp" />
 
 </RelativeLayout>

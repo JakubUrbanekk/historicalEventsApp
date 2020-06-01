@@ -1,7 +1,5 @@
 package com.example.inzynierka.Database.Report;
 
-import com.example.inzynierka.Database.Photo.PhotoEntity;
-
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
@@ -26,4 +24,10 @@ public interface ReportDao {
     void delete(ReportEntity reportEntity);
     @Query("SELECT * from reports ORDER BY reportTitle ASC")
     LiveData<List<ReportEntity>> getReportsByTitleOrder();
+
+    @Query("SELECT * from reports")
+    List<ReportEntity> getAll();
+
+    @Query("SELECT * FROM reports WHERE reportId = :id")
+    ReportEntity getReportByIdentifier(Integer id);
 }

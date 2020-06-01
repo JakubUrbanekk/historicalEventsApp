@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ffc046"
+    tools:context=".informations.listOfInformations.InformationsActivity">
+
+    <TextView
+        android:id="@+id/reportTitleTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimaryDark"
+        android:alpha="2.0"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center_horizontal"
+        android:text="Rekonstrukcje historyczne Polska 2020"
+        android:textColor="@color/quantum_black_text"
+        android:layout_marginBottom="0dp"
+        android:textSize="30dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/seeOnMapButton"
+            android:layout_width="fill_parent"
+            android:drawableStart="@drawable/ic_map_black_24dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="#ff8f00"
+            android:text="Zobacz na mapie"
+            android:textColor="#000000"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/refreshButton"
+            android:layout_width="fill_parent"
+            android:drawableLeft="@drawable/ic_refresh_black_24dp"
+            android:textSize="14sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="8dp"
+            android:background="#ff8f00"
+            android:textColor="#000000"
+            android:text="Odswież" />
+    </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:theme="@style/Theme2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Wpisz tytuł"
+            android:background="@color/colorPrimary"
+            android:layout_margin="8dp"
+            android:textColorHint="@color/quantum_black_text"
+            app:hintAnimationEnabled="true"
+            app:hintEnabled="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/localization_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:theme="@style/Theme2"
+                android:id="@+id/infoSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_search_blackblack_24dp"
+                android:textColor="@color/quantum_black_100" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/loadingLayout"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="Wydarzenia są ładowane. Proszę czekąć"
+            android:textColor="@color/quantum_black_text"
+            />
+        <com.example.inzynierka.addons.HorizontalDottedProgress
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:color="@color/colorPrimary"
+            app:count="13"
+            android:layout_gravity="center"
+            app:timeout="300"
+            >
+        </com.example.inzynierka.addons.HorizontalDottedProgress>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/informationsRV"
+        android:layout_height="wrap_content" />
+</LinearLayout>

@@ -1,76 +1,485 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addReportFloatingButton"
+    android:background="@color/colorPrimaryLight"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+>
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/addReportVP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="end|bottom"
-        android:clickable="true"
-        android:gravity="end"
-        app:srcCompat="@drawable/add_icon" />
+        android:visibility="gone"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/addReportVideoVP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addReportFloatingButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="end|bottom"
+            android:clickable="true"
+            android:gravity="end"
+            app:srcCompat="@drawable/ic_save_black_24dp"
+            android:focusable="true" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        >
 
-
+        <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+            android:paddingBottom="100dp"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/reportTitleTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimaryDark"
+        android:alpha="2.0"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center_horizontal"
+        android:text="Dodaj relacje"
+        android:textColor="@color/quantum_black_text"
+        android:layout_marginBottom="0dp"
+        android:textSize="30dp" />
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/addReportToolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        <fragment
-            android:id="@+id/fragment"
-            android:name="com.example.inzynierka.Report.AddReport.ViewPhotosFragment"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/addReportCL"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/addReportToolbar" />
+            app:layout_constraintTop_toTopOf="parent">
+<LinearLayout
+            android:id="@+id/multimediaPanesPane"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/multimediaPane"
+            android:orientation="vertical">
+    <LinearLayout
+    android:id="@+id/photosPane"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+        android:orientation="vertical"
+    android:visibility="gone">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zdjęcia: "
+        android:drawableStart="@drawable/ic_add_photo_small"
+        android:textSize="24sp"
+        android:layout_margin="8dp"
+        android:textColor="@color/quantum_black_text"
+        />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_fragments"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/addReportShowPhotosRV"
+        android:layout_width="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        />
+</LinearLayout>
+</LinearLayout>
+    <LinearLayout
+        android:id="@+id/videoPane"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Video: "
+            android:drawableStart="@drawable/ic_add_video_small"
+            android:textSize="24sp"
+            android:layout_margin="8dp"
+            android:textColor="@color/quantum_black_text"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/addReportShowVideosRV"
+            android:layout_width="match_parent"
+            android:layout_margin="8dp"
+            android:layout_height="80dp"
+            android:orientation="horizontal"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/reportAddLayoutReportDescription"
+    android:id="@+id/fourSpinnersLayout">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/addReportToolbar">
+                app:layout_constraintTop_toBottomOf="@id/reportAddLayoutReportDescription"
+                android:weightSum="2">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="Strój"
+                        android:drawableStart="@drawable/ic_city_big"
+                        android:layout_margin="8dp"
+                        android:textColor="@color/quantum_black_text"
+                        />
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:id="@+id/addReportSpinnerClothes"
+                        android:textColor="@color/quantum_black_100"
+                        android:textColorHint="@color/quantum_black_text"
+                        android:theme="@style/Theme2"
+                        android:layout_marginStart="8dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Broń"
+                        android:gravity="center"
+                        android:drawableStart="@drawable/ic_city_big"
+                        android:layout_margin="8dp"
+                        android:textColor="@color/quantum_black_text"
+                        />
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:textColor="@color/quantum_black_100"
+                        android:textColorHint="@color/quantum_black_text"
+                        android:theme="@style/Theme2"
+                        android:id="@+id/addReportSpinnerWeapon"
+                        android:textSize="14sp"
+                        android:layout_marginStart="8dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/reportAddLayoutReportDescription"
+        android:weightSum="2">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Akcesoria"
+                android:drawableStart="@drawable/ic_city_big"
+                android:layout_margin="8dp"
+                android:textColor="@color/quantum_black_text"
+                />
+            <Spinner
+                android:layout_width="match_parent"
+                android:textColor="@color/quantum_black_100"
+                android:textColorHint="@color/quantum_black_text"
+                android:theme="@style/Theme2"
+                android:layout_marginStart="8dp"
+                android:id="@+id/addReportSpinnerAccessory"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pojazd"
+                android:gravity="center"
+                android:drawableStart="@drawable/ic_city_big"
+                android:layout_margin="8dp"
+                android:textColor="@color/quantum_black_text"
+                />
+            <Spinner
+                android:layout_width="match_parent"
+                android:textColor="@color/quantum_black_100"
+                android:textColorHint="@color/quantum_black_text"
+                android:theme="@style/Theme2"
+                android:id="@+id/addReportSpinnerVehicle"
+                android:textSize="14sp"
+                android:layout_marginStart="8dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+<LinearLayout
+            android:layout_width="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:orientation="vertical"
+            android:id="@+id/multimediaPane"
+            android:layout_margin="8dp"
+            android:background="@drawable/border"
+            app:layout_constraintTop_toBottomOf="@id/fourSpinnersLayout"
+            android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dodaj: "
+        android:textSize="24sp"
+        android:layout_margin="8dp"
+        android:textColor="@color/quantum_black_text"
+        />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/addMultimediaButtons"
+                app:layout_constraintTop_toBottomOf="@id/reportAddLayoutReportDescription"
+                android:weightSum="3"
+                android:layout_margin="8dp"
+                android:layout_marginTop="0dp"
+                android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/ic_add_a_photo_black_24dp"
+                android:id="@+id/addReportAddPhotoB"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_add_a_photo_black_24dp"
+                android:textSize="14sp"
+                android:textColor="#000000"
+                android:background="#ff8f00"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="1.0"                />
+    <ImageView
+        android:src="@drawable/ic_video_call_black_24dp"
+        android:id="@+id/addVideoButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:background="#ff8f00"
+        android:textSize="14sp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:text="Dodaj film"
+        android:drawableLeft="@drawable/ic_video_call_black_24dp"
+        android:layout_weight="1.0"
+        />
+    <ImageView
+        android:src="@drawable/ic_mic_black_24dp"
+        android:id="@+id/addSoundButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:background="#ff8f00"
+        android:text="Dodaj nagranie"
+        android:drawableLeft="@drawable/ic_mic_black_24dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_weight="1.0"
+        />
+            </LinearLayout>
+</LinearLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:theme="@style/Theme2"
+                android:id="@+id/reportAddLayoutReportDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/Description"
+                android:textColorHint="@color/quantum_black_text"
+                app:counterEnabled="true"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/localization_layout">
 
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/addReportTabLayout"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:theme="@style/Theme2"
+                    android:id="@+id/reportAddEditTextReportDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_scrollFlags="scroll|enterAlways"
-                    app:tabGravity="fill"
-                    app:tabMode="fixed"
-                    app:tabMaxWidth="0dp"
-                    style="@style/MyCustomTabLayout"/>
+                    android:layout_margin="@dimen/grid_spacer1"
+                    android:drawableLeft="@drawable/ic_description_black_24dp"
+                    android:textColor="@color/quantum_black_100"
+                    android:inputType="textMultiLine" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/reportAddViewPager"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/localization_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/grid_spacer1"
+                android:theme="@style/Theme2"
+                android:textColorHint="@color/quantum_black_text"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/date_layout"
+                app:layout_constraintTop_toBottomOf="@+id/date_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/reportAddEditTextLocalization"
+                    android:layout_width="match_parent"
+                    android:drawableLeft="@drawable/ic_location_city_black_24dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/quantum_black_100"
+                    android:theme="@style/Theme2"
+                    android:hint="@string/localization" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/date_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:theme="@style/Theme2"
+                android:layout_margin="@dimen/grid_spacer1"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnersLayout">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/date"
+                    android:textColor="@color/quantum_black_100"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+                <TextView
+                    android:id="@+id/addReportTextViewDate"
+                    style="@style/Widget.AppCompat.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/addReportTabLayout"
-                    android:nestedScrollingEnabled="true">
+                    android:textColor="@color/quantum_black_100"
+                    android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                    android:text="TextView" />
 
-                </androidx.viewpager.widget.ViewPager>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/title_layout"
+                android:layout_width="0dp"
+                android:textColorHint="@color/quantum_black_text"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/grid_spacer1"
+                android:layout_marginTop="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:theme="@style/Theme2"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addReportEditTextTitle"
+                    android:layout_width="match_parent"
+                    android:drawableLeft="@drawable/ic_title_black_24dp"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Theme2"
+                    android:textColor="@color/quantum_black_100"
+
+                    android:hint="@string/report_title" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/spinnersLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title_layout"
+                android:weightSum="2">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Kategoria"
+                    android:drawableStart="@drawable/ic_city_big"
+                    android:layout_margin="8dp"
+                    android:textColor="@color/quantum_black_text"
+                    />
+                <Spinner
+                    android:id="@+id/addReportSpinnerCategory"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/quantum_black_100"
+                    android:textColorHint="@color/quantum_black_text"
+                    android:theme="@style/Theme2"
+                    android:layout_marginStart="8dp"
+                    android:layout_height="wrap_content" />
+                </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Epoka historyczna"
+                    android:gravity="center"
+                    android:drawableStart="@drawable/ic_city_big"
+                    android:layout_margin="8dp"
+                    android:textColor="@color/quantum_black_text"
+                    />
+                <Spinner
+                    android:id="@+id/addReportSpinnerEpoka"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/quantum_black_100"
+                    android:textColorHint="@color/quantum_black_text"
+                    android:theme="@style/Theme2"
+                    android:textSize="14sp"
+                    android:layout_marginStart="8dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
+    </ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

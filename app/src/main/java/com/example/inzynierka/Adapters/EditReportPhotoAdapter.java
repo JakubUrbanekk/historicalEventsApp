@@ -1,6 +1,5 @@
 package com.example.inzynierka.Adapters;
 
-import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,8 +11,6 @@ import com.bumptech.glide.Glide;
 import com.example.inzynierka.Database.Photo.PhotoEntity;
 import com.example.inzynierka.Database.Report.ReportEntity;
 import com.example.inzynierka.R;
-import com.example.inzynierka.Report.EditReport.EditReportActivity;
-import com.example.inzynierka.Report.EditReport.EditReportModel;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;

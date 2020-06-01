@@ -1,13 +1,13 @@
 package com.example.inzynierka.Report.EditReport;
 
 import android.app.Application;
-import android.net.Uri;
 
 import com.example.inzynierka.Database.Photo.PhotoEntity;
 import com.example.inzynierka.Database.Photo.PhotoRepository;
 import com.example.inzynierka.Database.Report.ReportEntity;
 import com.example.inzynierka.Database.Report.ReportRepository;
-import com.example.inzynierka.Report.ViewModelMainPhoto;
+import com.example.inzynierka.Database.videos.VideoEntity;
+import com.example.inzynierka.Database.videos.VideoRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,114 +15,84 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
+import lombok.Getter;
 
-public class EditReportModel extends AndroidViewModel implements ViewModelMainPhoto {
+@Getter
+public class EditReportModel extends AndroidViewModel {
     ReportEntity currentReport;
     ReportRepository reportRepository;
     PhotoRepository photoRepository;
-    int currentReportId;
-    MutableLiveData<List<PhotoEntity>> photosCurrent;
-    List<PhotoEntity> photosToDelete;
-    List<PhotoEntity> photosToInsert;
+    VideoRepository videoRepository;
+    List<PhotoEntity> photosCurrent;
+    List<VideoEntity> videosCurrent;
     public EditReportModel(@NonNull Application application) {
         super(application);
         reportRepository = new ReportRepository(application);
         photoRepository = new PhotoRepository(application);
-        photosToDelete = new ArrayList<>();
-        photosToInsert = new ArrayList<>();
-        photosCurrent = new MutableLiveData<>();
+        videoRepository = new VideoRepository(application);
     }
 
-    public MutableLiveData<List<PhotoEntity>> getPhotosCurrent() {
+    public List<PhotoEntity> getPhotosCurrent() {
+        if(photosCurrent==null){
+            return new ArrayList<>();
+        }
         return photosCurrent;
     }
-    public void addToCurrentPhotos(PhotoEntity currentPhotos) {
-        this.photosCurrent.getValue().add(currentPhotos);
-        photosCurrent.setValue(photosCurrent.getValue());
-    }
-    public void deleteFromCurrentPhotos(PhotoEntity photoToDelete){
-        for (PhotoEntity photoEntity : this.photosCurrent.getValue())
-        if(photoEntity.getPhotoUri().equals(photoToDelete.getPhotoUri())) {
-            this.photosCurrent.getValue().remove(photoEntity);
-            break;
-        }
-        getPhotosToInsert().remove(photoToDelete);
-        photosCurrent.setValue(photosCurrent.getValue());
-    }
-    public int currentPhotosSize(){
-        return photosCurrent.getValue().size();
-    }
-    public PhotoEntity firstPhotoFromList(){
-        return photosCurrent.getValue().get(0);
-    }
+
+
     public void setCurrentReport(ReportEntity currentReport) {
         this.currentReport = currentReport;
     }
-    public int getCurrentReportId() {
-        return currentReportId;
-    }
-    public void setCurrentReportId(int currentReportId) {
-        this.currentReportId = currentReportId;
-    }
-    public ReportEntity getCurrentReport() {
-        return currentReport;
+
+    public void updateReport(){
+        reportRepository.update(currentReport);
     }
     public void updatePhoto(PhotoEntity photoEntity){
         photoRepository.update(photoEntity);
     }
-    public void updateReport(){
-        reportRepository.update(currentReport);
-    }
-    public void deletePhoto(PhotoEntity photoEntity){
-        photoRepository.delete(photoEntity);
-    }
-    public void deleteReport(ReportEntity reportEntity){
-        reportRepository.delete(reportEntity);
-    }
-    public PhotoEntity getPhotoById(Integer photoId){
-        return photoRepository.getPhotoById(photoId);
-    }
+
     public LiveData<ReportEntity> getReportById(Integer id){
         return reportRepository.getReportById(id);
     }
-    public LiveData<List<ReportEntity>> getAllReports(){
-        return reportRepository.getAllReports();
+
+
+    public LiveData<List<PhotoEntity>> getPhotosFromReport(int id){
+        return photoRepository.getPhotosFromReportById(id);
     }
-    public LiveData<List<PhotoEntity>> getPhotosFromReport(){
-        return photoRepository.getPhotosFromReportById(currentReport.getReportId());
+
+    public LiveData<List<VideoEntity>> getVideosFromReport(int id){
+        return videoRepository.getVideosFromReportById(id);
     }
-    public List<PhotoEntity> getPhotosToDelete() {
-        return photosToDelete;
+
+    public long insertPhoto(PhotoEntity photoEntity){
+        return photoRepository.insert(photoEntity);
     }
-    public List<PhotoEntity> getPhotosToInsert() {
-        return photosToInsert;
+
+    public void setPhotosCurrent(List<PhotoEntity> photosCurrent) {
+        this.photosCurrent = photosCurrent;
     }
-    public void setPhotosToInsert(List<PhotoEntity> photosToInsert) {
-        this.photosToInsert = photosToInsert;
-    }
-    public void setPhotosToDelete(List<PhotoEntity> photosToDelete) {
-        this.photosToDelete = photosToDelete;
-    }
-    public void insertPhoto(PhotoEntity photoEntity){
-        photoRepository.insert(photoEntity);
-    }
-    public PhotoEntity getMainPhotoFromCurrentReport(){
-        return currentReport.getMainPhotoEntity();
-    }
-    @Override
-    public void setMainPhoto(PhotoEntity photoEntity) {
-        currentReport.setMainPhoto(photoEntity);
-    }
-    public LiveData<PhotoEntity> getPhotoByUriFromCurrentReport(Uri uri){
-        return photoRepository.getPhotoByUri(uri.toString(),getCurrentReportId());
-    }
-    public String getMainPhotoDescription(){
-        String mainPhotoUri = currentReport.getMainPhoto().toString();
-        for (PhotoEntity photoEntity: photosCurrent.getValue()){
-            if(photoEntity.getPhotoUri().equals(mainPhotoUri));
-            return photoEntity.getPhotoDescription();
+
+    public List<VideoEntity> getVideosCurrent() {
+        if(videosCurrent == null){
+            return new ArrayList<>();
         }
-        return "";
+        return videosCurrent;
+    }
+
+    public void setVideosCurrent(List<VideoEntity> videosCurrent) {
+        this.videosCurrent = videosCurrent;
+    }
+
+    public void insertVideo(VideoEntity videoAfterUpdate) {
+        videoRepository.insert(videoAfterUpdate);
+    }
+    public void updateVideo(VideoEntity videoEntity){
+        videoRepository.update(videoEntity);
+    }
+    public void deleteVideo(VideoEntity videoEntity){
+        videoRepository.delete(videoEntity);
+    }
+    public void deletePhoto(PhotoEntity photoEntity){
+        photoRepository.delete(photoEntity);
     }
 }

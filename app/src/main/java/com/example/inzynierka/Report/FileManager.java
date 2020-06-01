@@ -7,6 +7,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 
 import com.example.inzynierka.Database.Photo.PhotoEntity;
+import com.example.inzynierka.Database.videos.VideoEntity;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,6 +23,7 @@ public class FileManager {
     final String FILE_PATH;
     final String IMAGE_DIRECTORY = "Fotki";
     List<PhotoEntity> imagesToCopy;
+    List<VideoEntity> videosToCopy;
     public FileManager(Activity activity) {
         this.activity = activity;
         imagesToCopy = new ArrayList<>();
@@ -32,7 +34,44 @@ public class FileManager {
         this.imagesToCopy = imagesToCopy;
     }
 
-    public void saveImage() {
+    public void setVideosToCopy(List<VideoEntity> videosToCopy){
+        this.videosToCopy = videosToCopy;
+    }
+    public void saveVideos() {
+        if (videosToCopy == null){
+            return;
+        }
+        File file = new File(FILE_PATH);
+        Log.e("Image directory ", file.toString());
+        if(!file.exists())
+            file.mkdirs();
+
+        int cut = 0;
+        String result = null;
+        int i=0;
+
+        for (VideoEntity videoEntity : videosToCopy) {
+            Uri uri = videoEntity.getVideoUri();
+            result = uri.getPath();
+            cut = result.lastIndexOf('/');
+            if (cut != -1) {
+                result = result.substring(cut + 1);
+            }
+            try {
+                Log.e("Photo uri", uri.toString());
+                File copiedFile = copyFile(new File(getRealPathFromURI(uri)), file, File.separator + result);
+                Log.e("Copied file ", copiedFile.toString());
+                videosToCopy.get(i).setVideoUri(Uri.fromFile(copiedFile));
+                Log.e("W photo enetites mam ", videosToCopy.get(i).getVideoUri()+"");
+                i++;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    public void saveImages() {
         if (imagesToCopy == null){
             return;
         }
@@ -64,6 +103,30 @@ public class FileManager {
             }
         }
     }
+
+    public Uri saveImage(Uri uri) {
+        File file = new File(FILE_PATH);
+        Log.e("Image directory ", file.toString());
+        if(!file.exists())
+            file.mkdirs();
+
+        int cut = 0;
+        String result = null;
+        result = uri.getPath();
+        cut = result.lastIndexOf('/');
+        if (cut != -1) {
+            result = result.substring(cut + 1);
+        }
+        try {
+            File copiedFile = copyFile(new File(getRealPathFromURI(uri)), file, File.separator + result);
+            uri = Uri.fromFile(copiedFile);
+            return uri;
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
 
     private File copyFile(File sourceFile, File destFile, String result) throws IOException {
         File outputFile = new File(destFile, result);

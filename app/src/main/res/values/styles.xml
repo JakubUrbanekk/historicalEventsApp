@@ -3,28 +3,29 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">#ffa000</item>
+        <item name="colorPrimaryDark">#c67100</item>
+<!--        <item name="colorAccent">#ffd149</item>-->
+        <item name="colorAccent">#c67100</item>
     </style>
-    <style name="TextLabel" parent="TextAppearance.Design.Hint">
-        <item name="android:textSize">16sp</item>
+    <style name="Theme2" parent="AppTheme">
+        <item name="colorPrimary">@color/quantum_black_100</item>
+        <item name="colorAccent">@color/quantum_black_text</item>
+        <item name="colorControlNormal">@color/quantum_black_text</item>
     </style>
+<!--    <style name="TextLabel" parent="Widget.MaterialComponents.Text">-->
+<!--        &lt;!&ndash; Hint color and label color in FALSE state &ndash;&gt;-->
+<!--        <item name="android:textColorHint">@color/colorPrimaryDark</item>-->
+<!--        <item name="android:textSize">20sp</item>-->
+<!--        &lt;!&ndash; Label color in TRUE state and bar color FALSE and TRUE State &ndash;&gt;-->
+<!--        <item name="colorAccent">@color/colorAccent</item>-->
+<!--        <item name="colorControlNormal">@color/colorPrimaryDark</item>-->
+<!--        <item name="colorControlActivated">@color/colorPrimaryDark</item>-->
+<!--    </style>-->
 
-    <style name="AppTheme.TabLayout" parent="Widget.MaterialComponents.TabLayout">
-        <item name="android:textSize">@dimen/text_size</item>
-    </style>
+<!--    <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
+<!--        <item name="colorAccent">@color/HintText</item>-->
+<!--    </style>-->
 
-    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
-        <item name="tabTextAppearance">@style/MyCustomTabTextAppearance</item>
-    </style>
-    <style name="MyCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">@dimen/small_text_size</item>
-    </style>
-
-    <style name="AddReport" parent="Base.Theme.AppCompat.Light.Dialog">
-        <item name="android:windowTitleStyle">@style/DialogTitle</item>
-    </style>
-
-    <style name="DialogTitle" parent="TextAppearance.AppCompat.Large">
-        <item name="android:textSize">40sp</item>
-    </style>
 
 </resources>

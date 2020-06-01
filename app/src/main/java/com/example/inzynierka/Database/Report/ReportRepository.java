@@ -1,7 +1,6 @@
 package com.example.inzynierka.Database.Report;
 
 import android.app.Application;
-import android.os.AsyncTask;
 
 import com.example.inzynierka.Database.AppRoomDatabase;
 
@@ -19,10 +18,12 @@ public class ReportRepository {
 
     public long insert(final ReportEntity reportEntity) {
         return reportDao.insert(reportEntity);
-
     }
     public LiveData<List<ReportEntity>> getAllReports(){
         return reportDao.getAllReports();
+    }
+    public List<ReportEntity> getAll(){
+        return reportDao.getAll();
     }
     public LiveData<List<ReportEntity>> getReportsByTitleOrder(){
         return  reportDao.getReportsByTitleOrder();
@@ -46,5 +47,9 @@ public class ReportRepository {
     }
     public LiveData<ReportEntity> getReportById(Integer id){
         return reportDao.getReportById(id);
+    }
+
+    public ReportEntity getReportByIdentifier(Integer id){
+        return reportDao.getReportByIdentifier(id);
     }
 }

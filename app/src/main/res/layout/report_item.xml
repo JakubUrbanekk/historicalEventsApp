@@ -16,9 +16,11 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:background="#c67100"
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
@@ -27,53 +29,69 @@
 
                 <Button
                     android:id="@+id/reportItemDeleteReport"
-                    style="@style/Widget.AppCompat.Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="#ff8f00"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:layout_marginEnd="8dp"
                     android:text="@string/delete" />
 
                 <Button
                     android:id="@+id/reportItemEditReport"
-                    style="@style/Widget.AppCompat.Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="#ff8f00"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
                     android:text="@string/edit" />
 
             </LinearLayout>
 
             <TextView
                 android:id="@+id/reportItemTextViewTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="260dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/grid_spacer1"
                 android:layout_weight="1"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/reportItemImageViewMainPhoto" />
 
             <TextView
                 android:id="@+id/reportItemTextViewDate"
-                android:layout_width="wrap_content"
+                android:layout_width="260dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/grid_spacer1"
                 android:layout_weight="1"
+                android:textColor="#000000"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/reportItemTextViewTitle" />
 
             <TextView
                 android:id="@+id/reportItemTextViewLocalization"
-                android:layout_width="wrap_content"
+                android:layout_width="260dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/grid_spacer1"
                 android:layout_weight="1"
+                android:text="TEST TEST TEST TEST TEST"
+                android:textColor="#000000"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/reportItemTextViewDate" />
 
             <ImageView
                 android:id="@+id/reportItemImageViewMainPhoto"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/big_image"
+                android:layout_width="260dp"
+                android:layout_height="260dp"
                 android:layout_margin="@dimen/grid_spacer1"
                 android:layout_marginTop="8dp"
                 android:layout_weight="1"

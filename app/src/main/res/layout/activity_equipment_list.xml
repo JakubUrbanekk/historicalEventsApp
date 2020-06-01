@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryLight"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/colorPrimary"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".equipments.EquipmentListActivity">
+    <TextView
+        android:id="@+id/equipmentListTextViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:alpha="2.0"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center_horizontal"
+        android:layout_margin="8dp"
+        android:text="TextView"
+        android:textColor="@color/quantum_black_text"
+        android:textSize="30dp" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/equipmentListRecyclerView"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ></androidx.recyclerview.widget.RecyclerView>
+</LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addEquipmentFloatingButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="end|bottom"
+        android:clickable="true"
+        android:gravity="end"
+        app:srcCompat="@drawable/ic_add_black_24dp"
+        android:focusable="true" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    tools:context=".equipments.MainEquipmentsActivity">
+    <TextView
+        android:id="@+id/reportTitleTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimaryDark"
+        android:alpha="2.0"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center_horizontal"
+        android:layout_margin="8dp"
+        android:text="Wyposażenie"
+        android:textColor="@color/quantum_black_text"
+        android:layout_marginBottom="0dp"
+        android:textSize="30dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="2"
+        >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        style="@style/Widget.AppCompat.ButtonBar"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/addReportTextViewDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/quantum_black_100"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:text="Stroje" />
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="Stroje"
+                android:id="@+id/mainEquipmentClothButton"
+                android:background="@drawable/stroje_wyposazenie"
+                android:layout_margin="8dp"
+                android:textSize="30dp"
+                android:layout_weight="1">
+
+            </ImageButton>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/quantum_black_100"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:text="Bronie" />
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@drawable/bron_wyposazenie"
+                android:layout_margin="8dp"
+                android:id="@+id/mainEquipmentWeaponsButton"
+                android:layout_weight="1">
+
+            </ImageButton>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        style="@style/Widget.AppCompat.ButtonBar"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/quantum_black_100"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:text="Pojazdy" />
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="Stroje"
+                android:background="@drawable/pojazd_wyposazenie"
+                android:layout_margin="8dp"
+                android:textSize="30dp"
+                android:id="@+id/mainEquipmentVehicleButton"
+                android:layout_weight="1">
+
+            </ImageButton>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/quantum_black_100"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:text="Akcesoria" />
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/mainEquipmentAccesorriesButton"
+                android:background="@drawable/akcesoria_wyposazenie"
+                android:layout_margin="8dp"
+                android:textSize="30dp"
+                android:layout_weight="1">
+
+            </ImageButton>
+        </LinearLayout>
+    </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
