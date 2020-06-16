@@ -5,6 +5,7 @@ import android.location.Address;
 import android.location.Geocoder;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -12,13 +13,16 @@ public class CityPicker{
 
     public static String getCityName(Activity currentActivity, double longitude, double latitude) {
         Geocoder geocoder = new Geocoder(currentActivity, Locale.getDefault());
-        List<Address> addresses = null;
+        List<Address> addresses = new ArrayList<>();
         try {
             addresses = geocoder.getFromLocation(latitude, longitude, 1);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String cityName = addresses.get(0).getAddressLine(0);
+        String cityName = "Nieznane";
+        if (!addresses.isEmpty()) {
+            cityName = addresses.get(0).getAddressLine(0);
+        }
         return cityName;
     }
 }

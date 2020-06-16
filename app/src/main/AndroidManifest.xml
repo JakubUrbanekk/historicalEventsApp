@@ -14,7 +14,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_add_a_photo_black_24dp"
+        android:icon="@drawable/main_activity_icon"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_add_a_photo_black_24dp"
         android:supportsRtl="true"
@@ -58,6 +58,7 @@
         <activity
             android:name=".Report.AddReport.AddReportActivity"
             android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".Report.EditableReportActivity" />
     </application>
 
 </manifest>

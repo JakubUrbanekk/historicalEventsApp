@@ -3,6 +3,7 @@ package com.example.inzynierka.equipments;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.inzynierka.Adapters.EquipmentAdapter;
@@ -27,6 +28,7 @@ import lombok.extern.java.Log;
 public class EquipmentListActivity extends EquipmentBundleActivity {
     private RecyclerView listRecyclerView;
     private TextView textViewTitle;
+    private TextView textViewNoEq;
     private ReportRepository reportRepository;
     private EquipmentAdapter equipmentAdapter;
     private FloatingActionButton fab;
@@ -44,6 +46,7 @@ public class EquipmentListActivity extends EquipmentBundleActivity {
     private void initView() {
         listRecyclerView = (RecyclerView) findViewById(R.id.equipmentListRecyclerView);
         textViewTitle = (TextView) findViewById(R.id.equipmentListTextViewTitle);
+        textViewNoEq = (TextView) findViewById(R.id.equipmentListNoEQTextView);
         fab = (FloatingActionButton) findViewById(R.id.addEquipmentFloatingButton);
         fab.setOnClickListener(view -> {
             Intent intent = new Intent(this, AddEquipmentActivity.class);
@@ -58,11 +61,23 @@ public class EquipmentListActivity extends EquipmentBundleActivity {
     }
 
     @Override
+    public void setTextViewNOEQ(String s) {
+        textViewNoEq.setText(s);
+    }
+
+    @Override
     protected void initSpinner(Set<String> set) {
     }
 
 
     private void initRecyclerViewAdapter(List<IEquipment> list){
+        if(list.isEmpty()){
+            textViewNoEq.setVisibility(View.VISIBLE);
+        }
+        else {
+            textViewNoEq.setVisibility(View.GONE);
+        }
+
         equipmentAdapter = new EquipmentAdapter(this, list, repository);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         listRecyclerView.setLayoutManager(mLayoutManager);
@@ -97,6 +112,7 @@ public class EquipmentListActivity extends EquipmentBundleActivity {
                             .filter(reportEntity ->  !reportEntity.getVehicle().equals(FinalVariables.CLOTH_NOT_SELECTED_CONST))
                             .map(report ->report.getCloth())
                             .collect(Collectors.toList());
+                    log.info("Cloth from report " + mappedToString);
                     Set<String> set = new HashSet<>(mappedToString);
                     new AddEquipmentRequestTask(set).execute();
                     break;
@@ -143,7 +159,7 @@ public class EquipmentListActivity extends EquipmentBundleActivity {
 
             Set<String> ditinctNames = new HashSet<>(allNames);
             log.info("Distinct names " + ditinctNames);
-
+            log.info ("All cloth from report "  + set);
             for(String string:set){
                 if(!ditinctNames.contains(string)){
                     IEquipment iEquipment = new IEquipment(string);

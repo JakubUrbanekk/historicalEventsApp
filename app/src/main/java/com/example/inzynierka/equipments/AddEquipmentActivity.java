@@ -30,6 +30,11 @@ public class AddEquipmentActivity extends EditableEquipmentActivity{
         new AddEquipmentRequestTask(equipment, this).execute();
     }
 
+    @Override
+    public void setTextViewNOEQ(String text) {
+
+    }
+
     @AllArgsConstructor
     public class AddEquipmentRequestTask extends AsyncTask<Void, Void, Void> {
         IEquipment iEquipment;

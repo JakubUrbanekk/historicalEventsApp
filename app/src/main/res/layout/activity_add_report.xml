@@ -28,6 +28,7 @@
             android:id="@+id/addReportFloatingButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#ff8f00"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_gravity="end|bottom"
@@ -55,7 +56,7 @@
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimaryDark"
         android:alpha="2.0"
-        android:fontFamily="sans-serif-condensed"
+        android:fontFamily="@font/tahoma_regular"
         android:gravity="center_horizontal"
         android:text="Dodaj relacje"
         android:textColor="@color/quantum_black_text"
@@ -131,7 +132,31 @@
             android:orientation="horizontal"
             />
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/recordingPane"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dyktafon: "
+            android:drawableStart="@drawable/ic_mic_black_24dp"
+            android:drawableTint="@color/quantum_black_text"
+            android:textSize="24sp"
+            android:layout_margin="8dp"
+            android:textColor="@color/quantum_black_text"
+            />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/addReportShowRecordingRV"
+            android:layout_width="match_parent"
+            android:layout_margin="8dp"
+            android:layout_height="160dp"
+            android:orientation="horizontal"
+            />
+    </LinearLayout>
 
 </LinearLayout>
 <LinearLayout
@@ -159,7 +184,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:text="Strój"
-                        android:drawableStart="@drawable/ic_city_big"
+                        android:drawableStart="@drawable/ic_zbroja"
                         android:layout_margin="8dp"
                         android:textColor="@color/quantum_black_text"
                         />
@@ -182,7 +207,7 @@
                         android:layout_height="wrap_content"
                         android:text="Broń"
                         android:gravity="center"
-                        android:drawableStart="@drawable/ic_city_big"
+                        android:drawableStart="@drawable/ic_miecze"
                         android:layout_margin="8dp"
                         android:textColor="@color/quantum_black_text"
                         />
@@ -215,7 +240,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="Akcesoria"
-                android:drawableStart="@drawable/ic_city_big"
+                android:drawableStart="@drawable/ic_akcesorium"
                 android:layout_margin="8dp"
                 android:textColor="@color/quantum_black_text"
                 />
@@ -233,15 +258,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="1">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Pojazd"
-                android:gravity="center"
-                android:drawableStart="@drawable/ic_city_big"
                 android:layout_margin="8dp"
-                android:textColor="@color/quantum_black_text"
-                />
+                android:drawableStart="@drawable/ic_pojazd"
+                android:gravity="center"
+                android:text="Pojazd"
+                android:textColor="@color/quantum_black_text" />
+
             <Spinner
                 android:layout_width="match_parent"
                 android:textColor="@color/quantum_black_100"
@@ -439,7 +465,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:text="Kategoria"
-                    android:drawableStart="@drawable/ic_city_big"
+                    android:drawableStart="@drawable/ic_category_24px"
                     android:layout_margin="8dp"
                     android:textColor="@color/quantum_black_text"
                     />
@@ -462,7 +488,7 @@
                     android:layout_height="wrap_content"
                     android:text="Epoka historyczna"
                     android:gravity="center"
-                    android:drawableStart="@drawable/ic_city_big"
+                    android:drawableStart="@drawable/ic_hourglass_empty_black_24dp"
                     android:layout_margin="8dp"
                     android:textColor="@color/quantum_black_text"
                     />

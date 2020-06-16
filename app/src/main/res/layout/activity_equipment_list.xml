@@ -8,7 +8,7 @@
 <LinearLayout
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorPrimaryLight"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".equipments.EquipmentListActivity">
@@ -18,12 +18,23 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
         android:alpha="2.0"
-        android:fontFamily="sans-serif-condensed"
+        android:fontFamily="@font/tahoma_regular"
+        android:textColor="@color/quantum_black_text"
         android:gravity="center_horizontal"
         android:layout_margin="8dp"
         android:text="TextView"
-        android:textColor="@color/quantum_black_text"
         android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/equipmentListNoEQTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="28sp"
+        android:visibility="gone"
+        android:layout_margin="8dp"
+        android:text="@string/add_first_report" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/equipmentListRecyclerView"
         android:layout_margin="8dp"

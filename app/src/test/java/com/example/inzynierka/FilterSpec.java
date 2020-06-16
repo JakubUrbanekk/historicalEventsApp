@@ -33,7 +33,7 @@ public class FilterSpec {
     ReportEntity reportWithoutMainPhoto;
     ReportEntity reportWithOnePhoto;
     @BeforeEach
-    void init () throws Exception{
+    void init (){
         photos = new ArrayList<>();
         reportsWithPhotos = new ArrayList<>();
         reportsWithoutPhotos = new ArrayList<>();

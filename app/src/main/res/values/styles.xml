@@ -3,7 +3,7 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="colorPrimary">#ffa000</item>
+        <item name="colorPrimary">#333333</item>
         <item name="colorPrimaryDark">#c67100</item>
 <!--        <item name="colorAccent">#ffd149</item>-->
         <item name="colorAccent">#c67100</item>
@@ -12,6 +12,10 @@
         <item name="colorPrimary">@color/quantum_black_100</item>
         <item name="colorAccent">@color/quantum_black_text</item>
         <item name="colorControlNormal">@color/quantum_black_text</item>
+    </style>
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorPrimaryDark</item>
     </style>
 <!--    <style name="TextLabel" parent="Widget.MaterialComponents.Text">-->
 <!--        &lt;!&ndash; Hint color and label color in FALSE state &ndash;&gt;-->

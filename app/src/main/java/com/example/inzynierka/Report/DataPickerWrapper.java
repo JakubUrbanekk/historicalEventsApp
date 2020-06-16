@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import com.example.inzynierka.R;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -71,6 +73,7 @@ public class DataPickerWrapper implements android.view.View.OnFocusChangeListene
             calendar.setTime(getDate());
             dialog = new DatePickerDialog(
                     display.getContext(),
+                    R.style.DialogTheme,
                     this,
                     calendar.get(Calendar.YEAR),
                     calendar.get(Calendar.MONTH),

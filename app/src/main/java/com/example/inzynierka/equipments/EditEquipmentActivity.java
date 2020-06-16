@@ -63,6 +63,12 @@ public class EditEquipmentActivity extends EditableEquipmentActivity {
 
         new UpdateEquipmentRequestTask(iEquipment, this).execute();
     }
+
+    @Override
+    public void setTextViewNOEQ(String text) {
+
+    }
+
     @AllArgsConstructor
     public class GetEquipmentRequestTask extends AsyncTask<Void, Void, IEquipment> {
         long id;

@@ -57,7 +57,7 @@ public class CustomBottomDialog extends BottomSheetDialogFragment implements Vie
             log.info("Message in view " + message);
             if(url != null && !url.isEmpty()){
                 log.info("Setting black color");
-                textView.setTextColor(ContextCompat.getColor(activity.getApplicationContext(), R.color.quantum_black_100));
+                textView.setTextColor(ContextCompat.getColor(activity.getApplicationContext(), R.color.quantum_white_100));
                 textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_big_dot, 0, 0, 0);
             }
             else {

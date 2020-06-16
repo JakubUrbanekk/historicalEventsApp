@@ -29,7 +29,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@color/colorPrimaryDark"
                 android:alpha="2.0"
-                android:fontFamily="sans-serif-condensed"
+                android:fontFamily="@font/tahoma_regular"
                 android:gravity="center_horizontal"
                 android:text="Dodaj relację"
                 android:textColor="@color/quantum_black_text"
@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:text="Kategoria"
                 android:textSize="24sp"
-                android:drawableStart="@drawable/ic_city_big"
+                android:drawableStart="@drawable/ic_category_24px"
                 android:layout_margin="8dp"
                 android:textColor="@color/quantum_black_text"
                 />
@@ -137,7 +137,7 @@
                         android:layout_height="wrap_content"
                         android:text="Epoka"
                         android:textSize="24sp"
-                        android:drawableStart="@drawable/ic_city_big"
+                        android:drawableStart="@drawable/ic_hourglass_empty_black_24dp"
                         android:layout_margin="8dp"
                         android:textColor="@color/quantum_black_text"
                         />
@@ -173,7 +173,7 @@
                         android:layout_height="wrap_content"
                         android:text="Strój"
                         android:textSize="24sp"
-                        android:drawableStart="@drawable/ic_city_big"
+                        android:drawableStart="@drawable/ic_zbroja"
                         android:layout_margin="8dp"
                         android:textColor="@color/quantum_black_text"
                         />
@@ -198,7 +198,7 @@
                         android:layout_height="wrap_content"
                         android:text="Broń"
                         android:textSize="24sp"
-                        android:drawableStart="@drawable/ic_city_big"
+                        android:drawableStart="@drawable/ic_miecze"
                         android:layout_margin="8dp"
                         android:textColor="@color/quantum_black_text"
                         />
@@ -230,7 +230,7 @@
                         android:layout_height="wrap_content"
                         android:text="Akcesoria"
                         android:textSize="24sp"
-                        android:drawableStart="@drawable/ic_city_big"
+                        android:drawableStart="@drawable/ic_akcesorium"
                         android:layout_margin="8dp"
                         android:textColor="@color/quantum_black_text"
                         />
@@ -243,10 +243,6 @@
                         android:textSize="14sp"
                         android:layout_marginStart="8dp"
                         android:layout_height="wrap_content" />
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/colorPrimaryDark"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -254,15 +250,16 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     >
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pojazd"
-                        android:textSize="24sp"
-                        android:drawableStart="@drawable/ic_city_big"
                         android:layout_margin="8dp"
+                        android:drawableStart="@drawable/ic_pojazd"
+                        android:text="Pojazd"
                         android:textColor="@color/quantum_black_text"
-                        />
+                        android:textSize="24sp" />
+
                     <Spinner
                         android:id="@+id/filterSpinnerVehicle"
                         android:layout_width="match_parent"
@@ -272,11 +269,15 @@
                         android:textSize="14sp"
                         android:layout_marginStart="8dp"
                         android:layout_height="wrap_content" />
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/colorPrimaryDark"/>
                 </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimaryDark"/>
             </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
@@ -472,16 +473,15 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addReportFloatingButton"
-        android:layout_width="42dp"
-        android:layout_height="37dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#ff8f00"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_gravity="end|bottom"
-        android:layout_marginEnd="14dp"
         android:clickable="true"
-        android:focusable="true"
         android:gravity="end"
-        app:fabSize="normal"
+        android:focusable="true"
         app:srcCompat="@drawable/ic_check_black_24dp" />
 
 </RelativeLayout>

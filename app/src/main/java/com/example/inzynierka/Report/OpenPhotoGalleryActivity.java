@@ -7,6 +7,7 @@ import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,24 +15,29 @@ import android.provider.MediaStore;
 import android.view.View;
 
 import com.example.inzynierka.Database.Photo.PhotoEntity;
+import com.example.inzynierka.Database.recordings.RecordingEntity;
 import com.example.inzynierka.Database.videos.VideoEntity;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
+import lombok.extern.java.Log;
 
+@Log
 public abstract class OpenPhotoGalleryActivity extends AppCompatActivity {
     public static final int GALLERY_REQUEST_CODE = 1;
     public static final int GALLERY_VIDEO_REQUEST_CODE = 4;
     public static final int CAMERA_REQUEST_CODE = 2;
     public static final int VIDEO_REQUEST_CODE = 3;
-    public static final int DICAPHONE_REQUEST_CODE = 4;
+    public static final int DICAPHONE_REQUEST_CODE = 5;
     public ModelWithPhotos viewModel;
     public ModelWithVideos videoModel;
+    public ModelWithRecording recordingModel;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -50,7 +56,12 @@ public abstract class OpenPhotoGalleryActivity extends AppCompatActivity {
                 onVideosAdded(videoEntities);
             }
         });
-    }
+
+        recordingModel = new ModelWithRecording();
+        recordingModel.getLiveDataRecordingList().observe(this, this::onRecordingAdded);
+        }
+
+    protected abstract void onRecordingAdded(List<RecordingEntity> l);
 
     protected abstract void onPhotosAdded(List <PhotoEntity> photoEntities);
 
@@ -85,8 +96,9 @@ public abstract class OpenPhotoGalleryActivity extends AppCompatActivity {
         startActivityForResult(cameraIntent, requestCode);
     }
     public void openDicaphone(int requestCode){
+        log.info("Open dicaphone method starting");
         Intent intent = new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION);
-        startActivityForResult(intent, DICAPHONE_REQUEST_CODE);
+        startActivityForResult(intent, requestCode);
     }
 
     @SuppressLint("MissingSuperCall")
@@ -132,6 +144,24 @@ public abstract class OpenPhotoGalleryActivity extends AppCompatActivity {
                         videoModel.addVideoToList(videoEntity);
                     }
                     break;
+                case DICAPHONE_REQUEST_CODE:
+                    log.info("Return from dicaphone");
+                        if (resultCode == RESULT_OK) {
+                            Uri audioUri = data.getData();
+                            String path = getPathForAudio(this, audioUri);
+                            Uri uriPath = Uri.fromFile(new File(path));
+                            log.info("Uri " + uriPath);
+                            if (audioUri != null) {
+                                RecordingEntity recordingEntity = new RecordingEntity(uriPath.toString());
+                                recordingModel.addRecordingToList(recordingEntity);
+                            }
+                            // make use of this MediaStore uri
+                            // e.g. store it somewhere
+                        }
+                        else {
+                            // react meaningful to problems
+                        }
+                        break;
                 default :
                     break;
             }
@@ -142,5 +172,34 @@ public abstract class OpenPhotoGalleryActivity extends AppCompatActivity {
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
+    }
+
+    private String getPathForAudio(Context context, Uri uri)
+    {
+        String result = null;
+        Cursor cursor = null;
+
+        try {
+            String[] proj = { MediaStore.Audio.Media.DATA };
+            cursor = context.getContentResolver().query(uri, proj, null, null, null);
+            if (cursor == null) {
+                result = uri.getPath();
+            } else {
+                cursor.moveToFirst();
+                int column_index = cursor.getColumnIndex(MediaStore.Audio.AudioColumns.DATA);
+                result = cursor.getString(column_index);
+                cursor.close();
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return result;
     }
 }

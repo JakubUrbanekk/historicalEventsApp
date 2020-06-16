@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
         android:alpha="2.0"
-        android:fontFamily="sans-serif-condensed"
+        android:fontFamily="@font/tahoma_regular"
         android:gravity="center_horizontal"
         android:layout_margin="8dp"
         android:text="TextView"
@@ -85,13 +85,14 @@
         android:textColor="@color/quantum_black_100"
         android:id="@+id/addEquipmentAddPhotoButton"
         android:layout_margin="8dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/button_border_round"
         android:drawableLeft="@drawable/ic_add_photo_small"
         android:text="Dodaj zdjęcie" />
     <ImageView
         android:layout_margin="8dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="260dp"
+        android:layout_height="260dp"
+        android:layout_gravity="center"
         android:id="@+id/addEquipmentImageView"
         >
     </ImageView>

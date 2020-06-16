@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorPrimaryLight"
     tools:context=".informations.citiesInformations.CityDescriptionActivity">
 
     <LinearLayout
@@ -22,7 +22,7 @@
 
             android:background="@color/colorPrimaryDark"
             android:alpha="2.0"
-            android:fontFamily="sans-serif-condensed"
+            android:fontFamily="@font/tahoma_regular"
             android:gravity="center_horizontal"
             android:text="Dodaj relację"
             android:textColor="@color/quantum_black_text"

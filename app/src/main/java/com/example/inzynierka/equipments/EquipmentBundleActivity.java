@@ -23,31 +23,41 @@ public abstract class EquipmentBundleActivity extends AppCompatActivity {
     IEquipmentRepository repository;
     protected int bundleValue;
     public abstract void setTitleTextViewText(String title);
+    public abstract void setTextViewNOEQ(String text);
 
     protected void initRepository(){
         int value = getExtraBundle();
         bundleValue = value;
+        String text = "";
         log.info("Value from bundle " + value);
         switch (value) {
             case MainEquipmentsActivity.BUNDLE_EQUIPMENT_CLOTH:
                 repository = new ClothRepository(getApplication());
                 log.info("Repository created");
+                 text = "Nie masz jeszcze żadnych strojów.";
                 setTitleTextViewText("Stroje");
+                setTextViewNOEQ(text);
                 break;
             case MainEquipmentsActivity.BUNDLE_EQUIPMENT_WEAPON:
                 repository = new WeaponRepository(getApplication());
                 log.info("Repository created");
+                 text = "Nie masz jeszcze żadnych broni.";
                 setTitleTextViewText("Bronie");
+                setTextViewNOEQ(text);
                 break;
             case MainEquipmentsActivity.BUNDLE_EQUIPMENT_VEHICLE:
                 repository = new VehicleRepository(getApplication());
                 log.info("Repository created");
+                 text = "Nie masz jeszcze żadnych pojazdów.";
                 setTitleTextViewText("Pojazdy");
+                setTextViewNOEQ(text);
                 break;
             case MainEquipmentsActivity.BUNDLE_EQUIPMENT_ACCESSORIES:
                 repository = new AccessoriesRepository(getApplication());
                 log.info("Repository created");
+                 text = "Nie masz jeszcze żadnych akcesoriów.";
                 setTitleTextViewText("Akcesoria");
+                 setTextViewNOEQ(text);
                 break;
             default:
                 break;

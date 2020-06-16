@@ -18,6 +18,8 @@ import com.example.inzynierka.Database.informations.EventDetails;
 import com.example.inzynierka.Database.informations.EventDetailsDao;
 import com.example.inzynierka.Database.informations.LocalizationDao;
 import com.example.inzynierka.Database.informations.LocalizationEntity;
+import com.example.inzynierka.Database.recordings.RecordingDao;
+import com.example.inzynierka.Database.recordings.RecordingEntity;
 import com.example.inzynierka.Database.videos.VideoDao;
 import com.example.inzynierka.Database.videos.VideoEntity;
 
@@ -30,8 +32,8 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 @Database(entities = {PhotoEntity.class, ReportEntity.class, VideoEntity.class, LocalizationEntity.class,
-        EventDetails.class, ClothEntity.class, WeaponEntity.class, AccessoriesEntity.class, VehicleEntity.class},
-        version = 45, exportSchema = false)
+        EventDetails.class, ClothEntity.class, WeaponEntity.class, RecordingEntity.class, AccessoriesEntity.class, VehicleEntity.class},
+        version = 46, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppRoomDatabase extends RoomDatabase {
     private static final int NUMBER_OF_THREADS = 4;
@@ -41,6 +43,7 @@ public abstract class AppRoomDatabase extends RoomDatabase {
     public abstract ClothDao clothDao();
     public abstract WeaponDao weaponDao();
     public abstract AccessoriesDao accessoriesDao();
+    public abstract RecordingDao recordingDao();
     public abstract VehicleDao vehicleDao();
     public abstract EventDetailsDao eventDetailsDao();
     public abstract LocalizationDao localizationDao();

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorPrimaryLight"
     tools:context=".equipments.MainEquipmentsActivity">
     <TextView
         android:id="@+id/reportTitleTV"
@@ -16,7 +16,7 @@
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimaryDark"
         android:alpha="2.0"
-        android:fontFamily="sans-serif-condensed"
+        android:fontFamily="@font/tahoma_regular"
         android:gravity="center_horizontal"
         android:layout_margin="8dp"
         android:text="Wyposażenie"
@@ -26,6 +26,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorPrimaryLight"
         android:orientation="vertical"
         android:weightSum="2"
         >
@@ -53,7 +54,7 @@
                 android:layout_height="0dp"
                 android:text="Stroje"
                 android:id="@+id/mainEquipmentClothButton"
-                android:background="@drawable/stroje_wyposazenie"
+                android:background="@drawable/ic_zbroja"
                 android:layout_margin="8dp"
                 android:textSize="30dp"
                 android:layout_weight="1">
@@ -77,7 +78,7 @@
             <ImageButton
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:background="@drawable/bron_wyposazenie"
+                android:background="@drawable/ic_miecze"
                 android:layout_margin="8dp"
                 android:id="@+id/mainEquipmentWeaponsButton"
                 android:layout_weight="1">
@@ -108,7 +109,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:text="Stroje"
-                android:background="@drawable/pojazd_wyposazenie"
+                android:background="@drawable/ic_pojazd"
                 android:layout_margin="8dp"
                 android:textSize="30dp"
                 android:id="@+id/mainEquipmentVehicleButton"
@@ -132,7 +133,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:id="@+id/mainEquipmentAccesorriesButton"
-                android:background="@drawable/akcesoria_wyposazenie"
+                android:background="@drawable/ic_akcesorium"
                 android:layout_margin="8dp"
                 android:textSize="30dp"
                 android:layout_weight="1">

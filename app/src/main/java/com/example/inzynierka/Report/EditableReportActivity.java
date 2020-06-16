@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.example.inzynierka.Adapters.FullScreenImageAdapter;
 import com.example.inzynierka.Adapters.FullScreenVideoAdapter;
 import com.example.inzynierka.Adapters.PhotosAdapter;
+import com.example.inzynierka.Adapters.RecordingAdapter;
 import com.example.inzynierka.Adapters.RecyclerViewItemClickListener;
 import com.example.inzynierka.Database.Photo.PhotoEntity;
 import com.example.inzynierka.Database.Report.ReportEntity;
@@ -37,6 +38,7 @@ import com.example.inzynierka.Database.equipment.accessories.AccessoriesReposito
 import com.example.inzynierka.Database.equipment.clothes.ClothRepository;
 import com.example.inzynierka.Database.equipment.vehicles.VehicleRepository;
 import com.example.inzynierka.Database.equipment.weapons.WeaponRepository;
+import com.example.inzynierka.Database.recordings.RecordingEntity;
 import com.example.inzynierka.Database.videos.VideoEntity;
 import com.example.inzynierka.R;
 import com.example.inzynierka.Report.ListOfReports.ListOfReportsActivity;
@@ -56,6 +58,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
@@ -83,6 +86,7 @@ public abstract class EditableReportActivity extends OpenPhotoGalleryActivity im
     RecyclerView rvPhotos;
     private ReportRepository repository;
     RecyclerView rvVideos;
+    protected RecyclerView rvRecordings;
     protected Spinner spinnerCategory;
     protected Spinner spinnerEpoka;
     protected Spinner spinnerClothes;
@@ -94,12 +98,15 @@ public abstract class EditableReportActivity extends OpenPhotoGalleryActivity im
     protected TextInputEditText etTitle;
     protected PhotosAdapter aPhotoAdapter;
     protected PhotosAdapter aVideoAdapter;
+    protected RecordingAdapter aRecordingAdapter;
     protected FullScreenImageAdapter aFullScreenPhotos;
     FullScreenVideoAdapter aFullScreenVideos;
     protected TextInputEditText etDescription;
     private ImageView bAddVideo;
+    private ImageView bAddRecording;
     ActionBottomDialogFragment addPhotoBottomDialogFragment;
     protected LinearLayout photoPane;
+    protected LinearLayout recordingPane;
     protected LinearLayout videoPane;
     private final String PHOTO_GALLERY = "Dodaj zdjęcie z galerii";
     private final String PHOTO_CAMERA = "Zrób zdjęcie";
@@ -153,6 +160,18 @@ public abstract class EditableReportActivity extends OpenPhotoGalleryActivity im
     }
 
     @Override
+    protected void onRecordingAdded(List<RecordingEntity> photoEntities) {
+        log.info("Adding recording");
+        if(photoEntities.size()>0){
+            recordingPane.setVisibility(View.VISIBLE);
+        }
+        else {
+            recordingPane.setVisibility(View.GONE);
+        }
+        aRecordingAdapter.setRecordings(photoEntities);
+    }
+
+    @Override
     protected void onVideosAdded(List<VideoEntity> videoEntities) {
         if(videoEntities.size()>0){
             videoPane.setVisibility(View.VISIBLE);
@@ -173,8 +192,11 @@ public abstract class EditableReportActivity extends OpenPhotoGalleryActivity im
         clContent = (ConstraintLayout) findViewById(R.id.addReportCL);
         rvPhotos = (RecyclerView) findViewById(R.id.addReportShowPhotosRV);
         rvVideos = (RecyclerView) findViewById(R.id.addReportShowVideosRV);
+        rvRecordings = (RecyclerView) findViewById(R.id.addReportShowRecordingRV);
         tvDate = (TextView) findViewById(R.id.addReportTextViewDate);
         etTitle = (TextInputEditText) findViewById(R.id.addReportEditTextTitle);
+        bAddRecording = (ImageView) findViewById(R.id.addSoundButton);
+        bAddRecording.setOnClickListener(this);
         spinnerCategory = (Spinner) findViewById(R.id.addReportSpinnerCategory);
         spinnerEpoka = (Spinner) findViewById(R.id.addReportSpinnerEpoka);
         spinnerAccessory = (Spinner) findViewById(R.id.addReportSpinnerAccessory);
@@ -188,6 +210,7 @@ public abstract class EditableReportActivity extends OpenPhotoGalleryActivity im
         DataPickerWrapper dataPickerWrapper = new DataPickerWrapper(tvDate, this);
         photoPane = (LinearLayout) findViewById(R.id.photosPane);
         videoPane = (LinearLayout) findViewById(R.id.videoPane);
+        recordingPane = (LinearLayout) findViewById(R.id.recordingPane);
         bAddPhotos.setOnClickListener(this);
         addReport.setOnClickListener(this);
         bAddVideo.setOnClickListener(this);
@@ -245,24 +268,27 @@ public abstract class EditableReportActivity extends OpenPhotoGalleryActivity im
                 addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, "Dodaj nową", spinnerAdapter.getCount());
                 break;
             case SPINNER_EPOKA:
+                List<String> epoki = Arrays.asList("Prehistoria", "Starożytność", "Średniowiecze", "Czasy nowożytne");
                 addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, "Nieokreślona", 0);
-                new GetEpokaAsyncTask(spinnerAdapter.getCount(), (ArrayAdapter<String>)spinnerAdapter).execute();
+                epoki.forEach(epoka ->
+                        addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, epoka, spinnerAdapter.getCount()));
+                new GetEpokaAsyncTask(spinnerAdapter.getCount(), (ArrayAdapter<String>)spinnerAdapter, epoki).execute();
                 addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, "Dodaj nową", spinnerAdapter.getCount());
                 break;
             case SPINNER_ACCESSORY:
                 addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, FinalVariables.ACCESSORY_NOT_SELECTED_CONST, 0);
                 new GetAccessoriesseAsyncTask(spinnerAdapter.getCount(), (ArrayAdapter<String>)spinnerAdapter).execute();
-                addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, "Dodaj nową", spinnerAdapter.getCount());
+                addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, "Dodaj nowe", spinnerAdapter.getCount());
                 break;
             case SPINNER_CLOTH:
                 addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, FinalVariables.CLOTH_NOT_SELECTED_CONST, 0);
                 new GetClothAsyncTask(spinnerAdapter.getCount(), (ArrayAdapter<String>)spinnerAdapter).execute();
-                addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, "Dodaj nową", spinnerAdapter.getCount());
+                addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, "Dodaj nowy", spinnerAdapter.getCount());
                 break;
             case SPINNER_POJAZD:
                 addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, FinalVariables.VEHICLE_NOT_SELECTED_CONST, 0);
                 new GetVehicleAsyncTask(spinnerAdapter.getCount(), (ArrayAdapter<String>)spinnerAdapter).execute();
-                addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, "Dodaj nową", spinnerAdapter.getCount());
+                addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, "Dodaj nowy", spinnerAdapter.getCount());
                 break;
             case SPINNER_WEAPON:
                 addTextToSpinner((ArrayAdapter<String>) spinnerAdapter, FinalVariables.WEAPON_NOT_SELECTED_CONST, 0);
@@ -279,7 +305,7 @@ public abstract class EditableReportActivity extends OpenPhotoGalleryActivity im
             return;
         }
         List<String> spinnerOptions = getSpinnerOptions(adapter);
-        String lowerText = StringUtils.capitalize(text);
+        String lowerText = text.toLowerCase();
         if(!spinnerOptions.contains(lowerText)) {
             text = StringUtils.capitalize(text);
             adapter.insert(text,position);
@@ -300,7 +326,7 @@ public abstract class EditableReportActivity extends OpenPhotoGalleryActivity im
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(spinner.getSelectedItem().toString().equals("Dodaj nową")){
+                if(spinner.getSelectedItem().toString().equals("Dodaj nową") || spinner.getSelectedItem().toString().equals("Dodaj nowy") || spinner.getSelectedItem().toString().equals("Dodaj nowe")){
                     createDialogBoxWithEditText(spinner);
                 }
             }
@@ -315,7 +341,7 @@ public abstract class EditableReportActivity extends OpenPhotoGalleryActivity im
     private void createDialogBoxWithEditText(Spinner spinner){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         final EditText edittext = new EditText(this);
-        alert.setTitle("Dodaj nowy rodzaj");
+        alert.setTitle("Podaj tytuł");
         alert.setView(edittext);
         alert.setPositiveButton("Dodaj", (dialog, whichButton) -> {
             //What ever you want to do with the value
@@ -340,6 +366,7 @@ public abstract class EditableReportActivity extends OpenPhotoGalleryActivity im
     private void initAdapters(){
         initPhotosAdapter();
         initVideosAdapter();
+        initRecordingAdapter();
         initFullscreenPhotosAdapter();
         initFullScreenVideosAdapter();
     }
@@ -375,6 +402,12 @@ public abstract class EditableReportActivity extends OpenPhotoGalleryActivity im
         rvVideos.setLayoutManager(horizontalLayoutManager);
         rvVideos.setAdapter(aVideoAdapter);
 }
+    private void initRecordingAdapter() {
+        aRecordingAdapter = new RecordingAdapter();
+        LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rvRecordings.setLayoutManager(horizontalLayoutManager);
+        rvRecordings.setAdapter(aRecordingAdapter);
+    }
 
     @Override
     public void onBackPressed(){
@@ -433,7 +466,8 @@ public abstract class EditableReportActivity extends OpenPhotoGalleryActivity im
                 case R.id.addVideoButton:
                     showBottomSheet(view,  VIDEO_CAMERA, VIDEO_GALLERY);
                     break;
-                   // case R.id.addRecordingButton
+                case R.id.addSoundButton:
+                    openDicaphone(DICAPHONE_REQUEST_CODE);
 
             }
     }
@@ -492,6 +526,7 @@ public abstract class EditableReportActivity extends OpenPhotoGalleryActivity im
             copyImages();
             copyVideos();
             updateDatabase();
+            new AddNewEquipmentAsyncTask().execute();
             Intent intent = new Intent(this, ListOfReportsActivity.class);
             startActivity(intent);
         } else {
@@ -499,6 +534,7 @@ public abstract class EditableReportActivity extends OpenPhotoGalleryActivity im
             toast.show();
         }
     }
+
 
     protected abstract void updateDatabase();
 
@@ -636,6 +672,32 @@ public abstract class EditableReportActivity extends OpenPhotoGalleryActivity im
         }
     };
 
+    public class AddNewEquipmentAsyncTask extends AsyncTask<Void, Void, ReportEntity>{
+        @Override
+        protected ReportEntity doInBackground(Void... voids) {
+            String weapon = getSpinnerSelection(spinnerWeapon);
+            String accessory = getSpinnerSelection(spinnerAccessory);
+            String vehicle =  getSpinnerSelection(spinnerVehicle);
+            String cloth =  getSpinnerSelection(spinnerClothes);
+            if (weapon != "Nieokreślona"){
+                IEquipment iEquipment = new IEquipment(weapon);
+                weaponRepository.insert(iEquipment);
+            }
+            if (accessory != "Nieokreślony"){
+                IEquipment iEquipment = new IEquipment(accessory);
+                accessoryRepository.insert(iEquipment);
+            }
+            if (vehicle != "Nieokreślony"){
+                IEquipment iEquipment = new IEquipment(vehicle);
+                vehicleRepository.insert(iEquipment);
+            }
+            if (cloth != "Nieokreślony"){
+                IEquipment iEquipment = new IEquipment(cloth);
+                clothRepository.insert(iEquipment);
+            }
+            return null;
+        }
+    }
 
     public class GetReportByIdAsyncTask extends AsyncTask<Void, Void, ReportEntity>{
         @Override
@@ -704,6 +766,7 @@ public abstract class EditableReportActivity extends OpenPhotoGalleryActivity im
     public class GetEpokaAsyncTask extends AsyncTask<Void, Void, Set<String>> {
         int size;
         ArrayAdapter<String> spinnerAdapter;
+        List<String> epoki;
         @Override
         protected Set<String> doInBackground(Void... voids) {
             List<ReportEntity> list = repository.getAll();
@@ -717,8 +780,11 @@ public abstract class EditableReportActivity extends OpenPhotoGalleryActivity im
         @Override
         protected void onPostExecute(Set<String> list) {
             list.stream()
-                    .forEach(string ->
-                            addTextToSpinner(spinnerAdapter, string, size));
+                    .forEach(string ->{
+                            if(!epoki.contains(string)){
+                            addTextToSpinner(spinnerAdapter, string, size);
+                            }
+            });
             new GetReportByIdAsyncTask().execute();
         }
     }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="80dp"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
+    android:layout_margin="8dp"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="8dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageViewRecording"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_music_note_black_24dp"
+        ></ImageView>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/itemRecording"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:textColor="@color/quantum_black_100"
+        android:textColorHint="@color/quantum_black_text"
+        android:theme="@style/Theme2"
+        android:gravity="center">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/itemRecordingET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/quantum_black_100"
+            android:theme="@style/Theme2"
+            android:textSize="10sp"
+            android:hint="Opis" />
+    </com.google.android.material.textfield.TextInputLayout>
+</LinearLayout>
